@@ -55,8 +55,7 @@ a:hover{color:var(--gc-ink);}
 .gc-night .gc-onylw, .gc-night .gc-onylw *{color:var(--gc-ink) !important;}
 .gc-night [data-nightbtn]{background:var(--gc-white) !important;color:var(--gc-ink) !important;border-color:var(--gc-white) !important;}
 .gc-board [data-tile]{opacity:0;transform:translateY(min(2.4cqmax, 38.4px)) scale(0.985);}
-[data-cursorroot], [data-cursorroot] *{cursor:none !important;}
-video, video::-webkit-media-controls-enclosure, video::-webkit-media-controls-panel, video::-webkit-media-controls-play-button, video::-webkit-media-controls-timeline, video::-webkit-media-controls-mute-button, video::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-timeline-container, video::-webkit-media-controls-current-time-display, video::-webkit-media-controls-time-remaining-display, video::-webkit-media-controls-volume-slider{cursor:none !important;}
+[data-cursor],[data-trail]{display:none !important;}
 @media (hover: none){[data-cursorroot], [data-cursorroot] *{cursor:auto !important;} [data-cursor],[data-trail]{display:none !important;}}
 [data-galtrack],[data-lightslot]{scrollbar-width:none;-ms-overflow-style:none;}
 [data-galtrack]::-webkit-scrollbar,[data-lightslot]::-webkit-scrollbar,[data-body="open"]::-webkit-scrollbar,[data-lane]::-webkit-scrollbar,[data-step]::-webkit-scrollbar{display:none;}
@@ -633,7 +632,7 @@ class Component extends DCLogic {
     const showInfo = (on) => { text.style.opacity = on ? '1' : '0'; text.style.pointerEvents = on ? 'auto' : 'none'; shade.style.opacity = on ? '1' : '0'; stopBtn.style.display = on ? 'none' : 'flex'; };
     const play = (src) => {
       const v = document.createElement('video'); v.src = src; v.controls = true; v.autoplay = true; v.playsInline = true;
-      v.style.cssText = 'width:100%;height:100%;object-fit:contain;background:#000;cursor:none';
+      v.style.cssText = 'width:100%;height:100%;object-fit:contain;background:#000';
       v.addEventListener('ended', () => stop());
       setLayer(v); playing = true; showInfo(false);
       const pp = v.play(); if (pp && pp.catch) pp.catch(() => {});
@@ -713,7 +712,7 @@ class Component extends DCLogic {
     requestAnimationFrame(() => { place(full()); scrim.style.opacity = '0.9'; });
     fillText(first);
     ov.querySelector('[data-wcount]').textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(list().length).padStart(2, '0');
-    setTimeout(() => { ui.style.opacity = '1'; ui.style.pointerEvents = 'auto'; }, 420);
+    setTimeout(() => { ui.style.opacity = '1'; }, 420);
   }
   toggleMore = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState((s) => ({ more: !s.more })); };
   _openWork() { const root = this.boardEl; if (!root) return; const gate = root.querySelector('[data-ndagate]'); if (gate) gate.style.display = this._unlocked ? 'none' : 'flex'; const track = root.querySelector('[data-galtrack]'); if (track) track.scrollTop = 0; this._lazyCovers(); setTimeout(() => this._bindGallery(), 90); }
