@@ -14,9 +14,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&amp;family=Space+Mono:wght@400;700&amp;family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
-html,body{margin:0;padding:0;background:#10131A;font-family:'Space Grotesk',sans-serif;color:#10131A;-webkit-font-smoothing:antialiased;}
-a{color:#4B2BFF;text-decoration:none;}
-a:hover{color:#10131A;}
+/* ============ PALETTE : change the site colours here ============ */
+:root{
+  --gc-ink:#10131A;          /* near-black: board background, text */
+  --gc-accent:#A4B7AC;       /* sage, between #8FA89A and #B9C6BE */
+  --gc-accent-hover:#91A69A; /* accent on hover */
+  --gc-on-accent:#10131A;    /* text on accent tiles (use #FFFFFF with a dark accent) */
+  --gc-yellow:#F2846F;       /* coral (2nd accent, was yellow): cursor, highlights */
+  --gc-paper:#C9C6BE;        /* grey tiles */
+  --gc-paper-light:#DAD7CF;  /* light panels */
+  --gc-muted:#55554F;        /* small captions */
+  --gc-white:#F1F1EC;        /* off-white */
+}
+/* ================================================================ */
+html,body{margin:0;padding:0;background:var(--gc-ink);font-family:'Space Grotesk',sans-serif;color:var(--gc-ink);-webkit-font-smoothing:antialiased;}
+a{color:var(--gc-ink);text-decoration:underline;text-decoration-color:var(--gc-yellow);text-underline-offset:0.18em;}
+a:hover{color:var(--gc-ink);}
 *{box-sizing:border-box;}
 @keyframes gcBlink{0%,100%{opacity:1;}50%{opacity:0.25;}}
 @keyframes gcIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
@@ -26,8 +39,8 @@ a:hover{color:#10131A;}
 .gc-mani .gc-word::after{content:'';position:absolute;left:0;bottom:-0.02em;height:0.06em;width:100%;background:currentColor;transform:scaleX(0);transform-origin:left center;transition:transform .4s cubic-bezier(.4,0,.2,1);}
 .gc-mani .gc-word:hover::after,.gc-mani .gc-word.gc-swept::after{transform:scaleX(1);}
 .gc-mani .gc-word:hover,.gc-mani .gc-word.gc-swept{transform:skewX(-12deg);}
-.gc-mani:hover .gc-w1{background:#F5E14B;color:#10131A;}
-.gc-mani:hover .gc-w2{background:#4B2BFF;color:#fff;}
+.gc-mani:hover .gc-w1{background:var(--gc-yellow);color:var(--gc-ink);}
+.gc-mani:hover .gc-w2{background:var(--gc-accent);color:var(--gc-on-accent);}
 .gc-sigdot{animation:gcBlink 1.4s step-end infinite;}
 .gc-night [style*="rgb(241, 241, 236)"], .gc-night [style*="rgb(241, 241, 236)"] *{color:#E7E7E1 !important;}
 .gc-night [style*="rgb(241, 241, 236)"]{background-color:#17191E !important;}
@@ -37,184 +50,191 @@ a:hover{color:#10131A;}
 .gc-night [style*="rgb(197, 197, 191)"]{border-color:#3A3D44 !important;}
 .gc-night [style*="rgb(218, 215, 207)"], .gc-night [style*="rgb(218, 215, 207)"] *{color:#E7E7E1 !important;}
 .gc-night [style*="rgb(218, 215, 207)"]{background-color:#30343C !important;}
-.gc-night [data-num]{color:#F5E14B !important;}
-.gc-night [data-actionbox]{color:#F5E14B !important;}
-.gc-onylw, .gc-onylw *{color:#10131A !important;}
-.gc-night .gc-onylw, .gc-night .gc-onylw *{color:#10131A !important;}
-.gc-night [data-nightbtn]{background:#F1F1EC !important;color:#10131A !important;border-color:#F1F1EC !important;}
+.gc-night [data-num]{color:var(--gc-yellow) !important;}
+.gc-night [data-actionbox]{color:var(--gc-yellow) !important;}
+.gc-onylw, .gc-onylw *{color:var(--gc-ink) !important;}
+.gc-night .gc-onylw, .gc-night .gc-onylw *{color:var(--gc-ink) !important;}
+.gc-night [data-nightbtn]{background:var(--gc-white) !important;color:var(--gc-ink) !important;border-color:var(--gc-white) !important;}
 .gc-board [data-tile]{opacity:0;transform:translateY(min(2.4cqmax, 38.4px)) scale(0.985);}
 [data-cursorroot], [data-cursorroot] *{cursor:none !important;}
 video, video::-webkit-media-controls-enclosure, video::-webkit-media-controls-panel, video::-webkit-media-controls-play-button, video::-webkit-media-controls-timeline, video::-webkit-media-controls-mute-button, video::-webkit-media-controls-fullscreen-button, video::-webkit-media-controls-timeline-container, video::-webkit-media-controls-current-time-display, video::-webkit-media-controls-time-remaining-display, video::-webkit-media-controls-volume-slider{cursor:none !important;}
 @media (hover: none){[data-cursorroot], [data-cursorroot] *{cursor:auto !important;} [data-cursor],[data-trail]{display:none !important;}}
 [data-galtrack],[data-lightslot]{scrollbar-width:none;-ms-overflow-style:none;}
-[data-galtrack]::-webkit-scrollbar,[data-lightslot]::-webkit-scrollbar{display:none;}
+[data-galtrack]::-webkit-scrollbar,[data-lightslot]::-webkit-scrollbar,[data-body="open"]::-webkit-scrollbar,[data-lane]::-webkit-scrollbar,[data-step]::-webkit-scrollbar{display:none;}
+.gc-gedlink:hover{background:var(--gc-accent-hover);}
 @media (max-aspect-ratio: 1/1){.gc-whoami-h{font-size:min(3cqmax, 46px) !important;} }
 @media (max-width: 640px){.gc-whoami-h{font-size:clamp(30px, 8.5vw, 52px) !important;} }
 </style>
 <script src="image-slot.js"></script>
 </helmet>
-<div data-cursorroot="" style="width:100%;height:100vh;background:#10131A;display:flex;align-items:center;justify-content:center;overflow:hidden">
+<div data-cursorroot="" style="width:100%;height:100vh;background:var(--gc-ink);display:flex;align-items:center;justify-content:center;overflow:hidden">
   <div data-trail="" style="position: fixed; inset: 0; z-index: 90; pointer-events: none"></div>
-  <div data-cursor="" style="position: fixed; left: 0; top: 0; z-index: 95; width: 26px; height: 26px; margin: -6.5px 0 0 -6.5px; pointer-events: none; opacity: 0; transition: opacity .2s ease; will-change: transform"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><g fill="none" stroke="#F5E14B" stroke-width="2.6" stroke-linecap="square"><line x1="18" y1="18" x2="6.5" y2="6.5"></line><polyline points="15.5,6 6,6 6,15.5"></polyline></g></svg></div>
-  <div class="{{ themeClass }} gc-board" style="flex:none;width:100%;height:100%;transform-origin:center center;background:#10131A;position:relative;display:flex;flex-direction:column;overflow:hidden" ref="{{ setBoard }}">
-    <div data-nightbtn="" onClick="{{ toggleNight }}" title="Jour / Nuit" style="position:absolute;left:min(1.5cqmax, 24px);bottom:min(1.5cqmax, 24px);z-index:60;width:min(2.4cqmax, 38.4px);height:min(2.4cqmax, 38.4px);border:min(0.14cqmax, 2.2px) solid #10131A;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:min(1.1cqmax, 17.6px);background:#10131A;color:#F5E14B;opacity:1;box-shadow:0 min(0.3cqmax, 4.8px) min(1cqmax, 16px) rgba(0,0,0,0.35);transition:transform .25s ease">{{ nightGlyph }}</div>
+  <div data-cursor="" style="position: fixed; left: 0; top: 0; z-index: 95; width: 26px; height: 26px; margin: -6.5px 0 0 -6.5px; pointer-events: none; opacity: 0; transition: opacity .2s ease; will-change: transform"><svg viewBox="0 0 24 24" style="width:100%;height:100%"><g fill="none" style="stroke:var(--gc-yellow)" stroke-width="2.6" stroke-linecap="square"><line x1="18" y1="18" x2="6.5" y2="6.5"></line><polyline points="15.5,6 6,6 6,15.5"></polyline></g></svg></div>
+  <div class="{{ themeClass }} gc-board" style="flex:none;width:100%;height:100%;transform-origin:center center;background:var(--gc-ink);position:relative;display:flex;flex-direction:column;overflow:hidden" ref="{{ setBoard }}">
 
-    <div data-grid="" style="flex:1;position:relative;container-type:size;background:#10131A;display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:min(0.25cqmax, 4px);transition:grid-template-columns .62s cubic-bezier(.22,1,.36,1),grid-template-rows .62s cubic-bezier(.22,1,.36,1)">
-      <div data-entrybg="" style="position:absolute;inset:0;background:#10131A;opacity:0;z-index:0;pointer-events:none;transition:opacity .55s ease"></div>
+    <div data-grid="" style="flex:1;position:relative;container-type:size;background:var(--gc-ink);display:grid;grid-template-columns:1fr 1fr 1fr;grid-template-rows:1fr 1fr;gap:min(0.25cqmax, 4px);transition:grid-template-columns .62s cubic-bezier(.22,1,.36,1),grid-template-rows .62s cubic-bezier(.22,1,.36,1)">
+      <div data-entrybg="" style="position:absolute;inset:0;background:var(--gc-ink);opacity:0;z-index:0;pointer-events:none;transition:opacity .55s ease"></div>
 
-      <div data-tile="0" onClick="{{ open0 }}" style="grid-column:1;grid-row:1;position:relative;overflow:hidden;min-width:0;min-height:0;background:#C9C6BE;cursor:pointer">
+      <div data-tile="0" onClick="{{ open0 }}" style="grid-column:1;grid-row:1;position:relative;overflow:hidden;min-width:0;min-height:0;background:var(--gc-paper);cursor:pointer">
         <div data-pad="" style="position:absolute;inset:0;padding:min(1.5cqmax, 24px);transition:padding .55s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)">
-          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:#fff">00</div><div style="flex:1"></div>
-            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:#fff">
+          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:var(--gc-yellow)">00</div><div style="flex:1"></div>
+            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:var(--gc-ink);background:var(--gc-yellow);padding:0 0.2em">
               <svg data-arrow="" viewBox="0 0 24 24" style="position:absolute;inset:0;width:100%;height:100%;transition:transform .3s cubic-bezier(.34,1.2,.5,1)"><g data-arrowg="" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" style="transition:stroke-width .25s ease"><line x1="6" y1="18" x2="17.5" y2="6.5"></line><polyline points="8.5,6 18,6 18,15.5"></polyline></g></svg>
-              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
+              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.05cqmax, 16.8px);font-weight:400;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
             </div>
           </div>
           <div data-title="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(4.2cqmax, 67.2px);font-size:min(3.4cqmax, 54.4px);font-weight:700;letter-spacing:-0.03em;line-height:0.9;text-align:left;transition:top .4s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.4,0,.35,1)">WHO<br>I AM</div>
           <div data-stage="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);bottom:min(1.5cqmax, 24px);top:min(9.6cqmax, 153.6px)">
             <div data-body="compact" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px)">
-              <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;gap:min(0.3cqmax, 4.8px);padding:0 min(0.6cqmax, 9.6px)">
-                <div style="display:flex;gap:min(0.8cqmax, 12.8px);border-top:min(0.12cqmax, 1.9px) solid rgba(16,19,26,0.18);padding:min(0.7cqmax, 11.2px) 0;font-family:'Space Mono',monospace;font-size:min(0.82cqmax, 13.1px)"><div style="width:min(4.4cqmax, 70.4px);opacity:0.45;flex:none">NAME</div><div style="font-weight:600">Gaspard Courrier</div></div>
-                <div style="display:flex;gap:min(0.8cqmax, 12.8px);border-top:min(0.12cqmax, 1.9px) solid rgba(16,19,26,0.18);padding:min(0.7cqmax, 11.2px) 0;font-family:'Space Mono',monospace;font-size:min(0.82cqmax, 13.1px)"><div style="width:min(4.4cqmax, 70.4px);opacity:0.45;flex:none">ROLE</div><div style="font-weight:600">Creative Motion Designer, Art Direction</div></div>
-                <div style="display:flex;gap:min(0.8cqmax, 12.8px);border-top:min(0.12cqmax, 1.9px) solid rgba(16,19,26,0.18);border-bottom:min(0.12cqmax, 1.9px) solid rgba(16,19,26,0.18);padding:min(0.7cqmax, 11.2px) 0;font-family:'Space Mono',monospace;font-size:min(0.82cqmax, 13.1px)"><div style="width:min(4.4cqmax, 70.4px);opacity:0.45;flex:none">EXP</div><div style="font-weight:600">6 years of professional experience</div></div>
-              </div>
-              <div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);color:#55554F">motion designer · 6 yrs · Paris</div>
+              <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 min(3cqmax, 48px)"><div style="font-size:min(6cqmax, 96px);font-weight:700;letter-spacing:-0.05em;line-height:0.82;color:var(--gc-ink);background:var(--gc-yellow);padding:0.1em 0.16em 0.06em 0.12em;width:fit-content;white-space:nowrap">GC.</div></div>
+              <div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);color:var(--gc-muted)">Gaspard Courrier · motion designer, Paris</div>
             </div>
-            <div data-body="open" style="position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;gap:min(2.6cqmax, 41.6px);max-width:min(60cqmax, 960px)">
-              <div class="gc-mani gc-whoami-h" style="font-size:min(5cqmax, 80px);font-weight:700;letter-spacing:-0.03em;line-height:1.04;cursor:default"><span class="gc-word">I</span> <span class="gc-word">design</span> <span class="gc-word gc-w1" style="background:#4B2BFF;color:#fff;padding:0 min(0.4cqmax, 6.4px);box-decoration-break:clone;transition:background .3s ease,color .3s ease,transform .35s cubic-bezier(.4,0,.2,1)">visuals</span> <span class="gc-word">and</span> <span class="gc-word gc-w2 gc-onylw" style="background:#F5E14B;color:#10131A;padding:0 min(0.4cqmax, 6.4px);box-decoration-break:clone;transition:background .3s ease,color .3s ease,transform .35s cubic-bezier(.4,0,.2,1)">movement</span> <span class="gc-word">to</span> <span class="gc-word">tell</span> <span class="gc-word">stories</span> <span class="gc-word">and</span> <span class="gc-word">carry</span> <span class="gc-word">ideas.</span></div>
-              <div style="font-family:'Space Mono',monospace;font-size:min(1.2cqmax, 19.2px);color:#10131A;line-height:1.85;max-width:min(46cqmax, 736px);font-weight:500">Hey! I'm Gaspard, a creative motion designer with 6 years of professional experience and a real programming background. Equally at home designing, keyframing and coding. Technique always stays in service of the idea: creativity comes first, everything else exists to make it real. Having grown up between France, Australia, Indonesia and Russia, I feel at home in any culture.</div>
+            <div data-scrollhint="" style="position:absolute;left:50%;bottom:min(0.6cqmax,9.6px);transform:translateX(-50%);z-index:5;display:none;align-items:center;gap:min(0.5cqmax,8px);font-family:'Space Mono',monospace;font-size:min(0.78cqmax,12.5px);color:rgba(16,19,26,0.72);letter-spacing:0.16em;pointer-events:none;background:rgba(201,198,190,0.9);padding:min(0.3cqmax,4.8px) min(0.85cqmax,13.6px)"><span>SCROLL</span><span class="gc-sigdot">↓</span></div><div data-body="open" data-split="0" style="position:absolute;inset:0;display:none;gap:min(2cqmax, 32px);padding-top:min(4.4cqmax,70.4px);box-sizing:border-box;overflow:hidden">
+              <div data-splitmain="" style="flex:1 1 0;min-width:0;min-height:0;display:flex;flex-direction:column;justify-content:safe center;gap:min(2.2cqmax, 35.2px);overflow-y:auto;padding-bottom:min(1.4cqmax, 22.4px)">
+                <div class="gc-mani gc-whoami-h" style="font-size:min(5cqmax, 80px);font-weight:700;letter-spacing:-0.03em;line-height:1.04;cursor:default"><span class="gc-word">I</span> <span class="gc-word">design</span> <span class="gc-word gc-w1" style="background:var(--gc-accent);color:var(--gc-on-accent);padding:0 min(0.4cqmax, 6.4px);box-decoration-break:clone;transition:background .3s ease,color .3s ease,transform .35s cubic-bezier(.4,0,.2,1)">visuals</span> <span class="gc-word">and</span> <span class="gc-word gc-w2 gc-onylw" style="background:var(--gc-yellow);color:var(--gc-ink);padding:0 min(0.4cqmax, 6.4px);box-decoration-break:clone;transition:background .3s ease,color .3s ease,transform .35s cubic-bezier(.4,0,.2,1)">movement</span> <span class="gc-word">to</span> <span class="gc-word">tell</span> <span class="gc-word">stories</span> <span class="gc-word">and</span> <span class="gc-word">carry</span> <span class="gc-word">ideas.</span></div>
+                <div style="font-size:min(1.9cqmax, 30.4px);font-weight:500;line-height:1.3;letter-spacing:-0.01em;max-width:min(40cqmax, 640px)">Hey! I'm Gaspard, a creative motion designer with 6 years of professional experience.</div>
+                <div style="display:flex"><div data-morebtn="" onClick="{{ toggleMore }}" style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);font-weight:700;letter-spacing:0.12em;border:min(0.14cqmax, 2.2px) solid currentColor;padding:min(0.7cqmax, 11.2px) min(1.1cqmax, 17.6px);min-height:44px;display:flex;align-items:center;cursor:pointer;transition:background .2s ease,color .2s ease">READ MORE +</div></div>
+              </div>
+              <div data-splitpanel="" style="flex:0 0 0%;min-width:0;min-height:0;overflow:hidden;background:var(--gc-ink);color:#E7E7E1;transition:flex-basis .55s cubic-bezier(.22,1,.36,1)">
+                <div data-splitinner="" style="height:100%;overflow-y:auto;padding:min(2.2cqmax, 35.2px);display:flex;flex-direction:column;justify-content:safe center;gap:min(1.2cqmax, 19.2px);opacity:0;transition:opacity .3s ease">
+                  <div style="font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);font-weight:700;letter-spacing:0.14em;color:var(--gc-yellow)">MORE ABOUT ME</div>
+                  <div style="font-family:'Space Mono',monospace;font-size:min(1.05cqmax, 16.8px);line-height:1.85;color:#E7E7E1">I also have a real programming background. Equally at home designing, keyframing and coding. Technique always stays in service of the idea: creativity comes first, everything else exists to make it real. Having grown up between France, Australia, Indonesia and Russia, I feel at home in any culture.</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div data-tile="2" onClick="{{ open2 }}" style="grid-column:2;grid-row:1;position:relative;overflow:hidden;min-width:0;min-height:0;background:#C9C6BE;cursor:pointer">
+      <div data-tile="2" onClick="{{ open2 }}" style="grid-column:2;grid-row:1;position:relative;overflow:hidden;min-width:0;min-height:0;background:var(--gc-paper);cursor:pointer">
         <div data-pad="" style="position:absolute;inset:0;padding:min(1.5cqmax, 24px);transition:padding .55s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)">
-          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:#fff">02</div><div style="flex:1"></div>
-            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:#fff">
+          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:var(--gc-yellow)">02</div><div style="flex:1"></div>
+            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:var(--gc-ink);background:var(--gc-yellow);padding:0 0.2em">
               <svg data-arrow="" viewBox="0 0 24 24" style="position:absolute;inset:0;width:100%;height:100%;transition:transform .3s cubic-bezier(.34,1.2,.5,1)"><g data-arrowg="" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" style="transition:stroke-width .25s ease"><line x1="6" y1="18" x2="17.5" y2="6.5"></line><polyline points="8.5,6 18,6 18,15.5"></polyline></g></svg>
-              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
+              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.05cqmax, 16.8px);font-weight:400;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
             </div>
           </div>
           <div data-title="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(4.2cqmax, 67.2px);font-size:min(3.4cqmax, 54.4px);font-weight:700;letter-spacing:-0.03em;line-height:0.9;text-align:left;transition:top .4s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.4,0,.35,1)">WHAT<br>I DO</div>
           <div data-stage="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);bottom:min(1.5cqmax, 24px);top:min(9.6cqmax, 153.6px)">
             <div data-body="compact" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px)">
-              <div style="flex:1;min-height:0;display:flex;align-items:center;justify-content:center;gap:min(1.5cqmax, 24px)">
-                <div data-do-sq="c" style="width:min(5cqmax, 80px);height:min(5cqmax, 80px);background:#4B2BFF;transition:transform .3s ease"></div>
-                <div data-do-sq="m" style="width:min(5cqmax, 80px);height:min(5cqmax, 80px);background:#F5E14B;transition:transform .3s ease"></div>
-                <div data-do-sq="t" style="width:min(5cqmax, 80px);height:min(5cqmax, 80px);background:#10131A;transition:transform .3s ease"></div>
-              </div>
-              <div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);color:#55554F">create → move → deploy</div>
+              <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 min(3cqmax, 48px)"><div style="text-align:left;display:grid;grid-template-columns:repeat(3,min(7cqmax, 112px));gap:min(0.5cqmax, 8px);max-width:100%"><div style="background:var(--gc-accent);color:var(--gc-on-accent);padding:min(0.7cqmax, 11.2px);display:flex;flex-direction:column;justify-content:space-between;min-width:0;aspect-ratio:1/1"><div style="font-size:min(2.4cqmax, 38.4px);font-weight:700;line-height:0.9">C</div><div style="font-family:'Space Mono',monospace;font-size:min(0.6cqmax, 9.6px);line-height:1.3">CREATIVE<br>THINKING</div></div><div class="gc-onylw" style="background:var(--gc-yellow);color:var(--gc-ink);padding:min(0.7cqmax, 11.2px);display:flex;flex-direction:column;justify-content:space-between;min-width:0;aspect-ratio:1/1"><div style="font-size:min(2.4cqmax, 38.4px);font-weight:700;line-height:0.9">M</div><div style="font-family:'Space Mono',monospace;font-size:min(0.6cqmax, 9.6px);line-height:1.3">MOTION<br>DESIGN</div></div><div style="background:var(--gc-ink);color:#fff;padding:min(0.7cqmax, 11.2px);display:flex;flex-direction:column;justify-content:space-between;min-width:0;aspect-ratio:1/1"><div style="font-size:min(2.4cqmax, 38.4px);font-weight:700;line-height:0.9">T</div><div style="font-family:'Space Mono',monospace;font-size:min(0.6cqmax, 9.6px);line-height:1.3">TECHNICAL<br>FLUENCY</div></div></div></div>
+              <div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);color:var(--gc-muted)">create → move → deploy</div>
             </div>
-            <div data-body="open" data-whatgrid="" style="position:absolute;inset:0;display:none;grid-template-columns:repeat(3,1fr);gap:min(0.2cqmax, 3.2px);background:#10131A;border:min(0.2cqmax, 3.2px) solid #10131A">
-              <div data-lane="" data-accent="#F5E14B" style="order:2;background:#DAD7CF;color:#10131A;padding:min(1.6cqmax, 25.6px);display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px);transition:background .3s ease,color .3s ease;cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);opacity:0.55">M for</div><div style="font-size:min(2cqmax, 32px);font-weight:700;letter-spacing:-0.02em;line-height:0.98">MOTION DESIGN</div><div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);opacity:0.72;line-height:1.7">2D and 3D - animation, graphics, illustration, layout.</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);line-height:1.6">Design, animation, illustration, layout and full 3D. Broadcast-grade motion built to survive live air.</div><div style="flex:1"></div><div style="border-top:min(0.14cqmax, 2.2px) solid currentColor;padding-top:min(0.6cqmax, 9.6px);font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);font-weight:600">AE · C4D · HOUDINI · CAVALRY · UNREAL · REDSHIFT · ARNOLD · RIVE</div></div>
-              <div data-lane="" data-accent="#4B2BFF" style="order:1;background:#DAD7CF;color:#10131A;padding:min(1.6cqmax, 25.6px);display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px);transition:background .3s ease,color .3s ease;cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);opacity:0.55">C for</div><div style="font-size:min(2cqmax, 32px);font-weight:700;letter-spacing:-0.02em;line-height:0.98">CREATIVE THINKING</div><div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);opacity:0.72;line-height:1.7">Ideas first. The right answer to the brief - not just a pretty one.</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);line-height:1.6">This is what matters most to me. I love reading a brief and finding the most fitting response - the concept always leads. Branding, title sequences, design concepts for major TV brands.</div><div style="flex:1"></div><div style="border-top:min(0.14cqmax, 2.2px) solid currentColor;padding-top:min(0.6cqmax, 9.6px);font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);font-weight:600">CONCEPT · BRANDING · IDENTS · DIRECTION</div></div>
-              <div data-lane="" data-accent="#10131A" style="order:3;background:#DAD7CF;color:#10131A;padding:min(1.6cqmax, 25.6px);display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px);transition:background .3s ease,color .3s ease;cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);opacity:0.55">T for</div><div style="font-size:min(2cqmax, 32px);font-weight:700;letter-spacing:-0.02em;line-height:0.98">TECHNICAL FLUENCY</div><div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);opacity:0.72;line-height:1.7">A motion designer who codes - always in service of the idea.</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);line-height:1.6">I write C, Java and JavaScript, and I use code every day to automate my designs and make my clients' lives easier. I like learning new tools and experimenting.</div><div style="flex:1"></div><div style="border-top:min(0.14cqmax, 2.2px) solid currentColor;padding-top:min(0.6cqmax, 9.6px);font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);font-weight:600">C · JAVA · JAVASCRIPT · TOUCHDESIGNER</div></div>
+            <div data-body="open" data-whatgrid="" style="position:absolute;inset:0;display:none;grid-template-columns:repeat(3,1fr);grid-auto-rows:1fr;gap:min(0.2cqmax, 3.2px);background:var(--gc-ink);border:min(0.2cqmax, 3.2px) solid var(--gc-ink)">
+              <div data-lane="" data-accent="var(--gc-yellow)" style="order:2;background:var(--gc-paper-light);color:var(--gc-ink);padding:min(1.6cqmax, 25.6px);display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px);transition:background .3s ease,color .3s ease;min-height:0;overflow-y:auto;cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);opacity:0.55">M for</div><div style="font-size:min(2cqmax, 32px);font-weight:700;letter-spacing:-0.02em;line-height:0.98">MOTION DESIGN</div><div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);opacity:0.72;line-height:1.7">2D and 3D - animation, graphics, illustration, layout.</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);line-height:1.6">Design, animation, illustration, layout and full 3D. Broadcast-grade motion built to survive live air.</div><div style="flex:1"></div><div style="border-top:min(0.14cqmax, 2.2px) solid currentColor;padding-top:min(0.6cqmax, 9.6px);font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);font-weight:600">AE · C4D · HOUDINI · CAVALRY · UNREAL · REDSHIFT · ARNOLD · RIVE</div></div>
+              <div data-lane="" data-accent="var(--gc-accent)" style="order:1;background:var(--gc-paper-light);color:var(--gc-ink);padding:min(1.6cqmax, 25.6px);display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px);transition:background .3s ease,color .3s ease;min-height:0;overflow-y:auto;cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);opacity:0.55">C for</div><div style="font-size:min(2cqmax, 32px);font-weight:700;letter-spacing:-0.02em;line-height:0.98">CREATIVE THINKING</div><div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);opacity:0.72;line-height:1.7">Ideas first. The right answer to the brief - not just a pretty one.</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);line-height:1.6">This is what matters most to me. I love reading a brief and finding the most fitting response - the concept always leads. Branding, title sequences, design concepts for major TV brands.</div><div style="flex:1"></div><div style="border-top:min(0.14cqmax, 2.2px) solid currentColor;padding-top:min(0.6cqmax, 9.6px);font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);font-weight:600">CONCEPT · BRANDING · IDENTS · DIRECTION</div></div>
+              <div data-lane="" data-accent="var(--gc-ink)" style="order:3;background:var(--gc-paper-light);color:var(--gc-ink);padding:min(1.6cqmax, 25.6px);display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px);transition:background .3s ease,color .3s ease;min-height:0;overflow-y:auto;cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);opacity:0.55">T for</div><div style="font-size:min(2cqmax, 32px);font-weight:700;letter-spacing:-0.02em;line-height:0.98">TECHNICAL FLUENCY</div><div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);opacity:0.72;line-height:1.7">A motion designer who codes - always in service of the idea.</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);line-height:1.6">I write C, Java and JavaScript, and I use code every day to automate my designs and make my clients' lives easier. I like learning new tools and experimenting.</div><div style="flex:1"></div><div style="border-top:min(0.14cqmax, 2.2px) solid currentColor;padding-top:min(0.6cqmax, 9.6px);font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);font-weight:600">C · JAVA · JAVASCRIPT · TOUCHDESIGNER</div></div>
             </div>
           </div>
         </div>
       </div>
 
-      <div data-tile="4" onClick="{{ open4 }}" style="grid-column:3;grid-row:1;position:relative;overflow:hidden;min-width:0;min-height:0;background:#C9C6BE;cursor:pointer">
+      <div data-tile="4" onClick="{{ open4 }}" style="grid-column:3;grid-row:1;position:relative;overflow:hidden;min-width:0;min-height:0;background:var(--gc-paper);cursor:pointer">
         <div data-pad="" style="position:absolute;inset:0;padding:min(1.5cqmax, 24px);transition:padding .55s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)">
-          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:#fff">04</div><div style="flex:1"></div>
-            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:#fff">
+          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:var(--gc-yellow)">04</div><div style="flex:1"></div>
+            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:var(--gc-ink);background:var(--gc-yellow);padding:0 0.2em">
               <svg data-arrow="" viewBox="0 0 24 24" style="position:absolute;inset:0;width:100%;height:100%;transition:transform .3s cubic-bezier(.34,1.2,.5,1)"><g data-arrowg="" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" style="transition:stroke-width .25s ease"><line x1="6" y1="18" x2="17.5" y2="6.5"></line><polyline points="8.5,6 18,6 18,15.5"></polyline></g></svg>
-              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
+              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.05cqmax, 16.8px);font-weight:400;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
             </div>
           </div>
           <div data-title="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(4.2cqmax, 67.2px);font-size:min(3.4cqmax, 54.4px);font-weight:700;letter-spacing:-0.03em;line-height:0.9;text-align:left;transition:top .4s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.4,0,.35,1)">WHAT'S<br>NEXT</div>
           <div data-stage="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);bottom:min(1.5cqmax, 24px);top:min(9.6cqmax, 153.6px)">
             <div data-body="compact" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px)">
-              <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;padding:0 min(0.6cqmax,9.6px)"><div style="font-size:min(1.8cqmax,28.8px);font-weight:700;letter-spacing:-0.02em;line-height:1.12">I'm willing to <span class="gc-onylw" style="background:#F5E14B;color:#10131A;padding:0 min(0.35cqmax,5.6px);box-decoration-break:clone">build the idea</span>, <span style="color:#8a877f;text-decoration:line-through;text-decoration-thickness:min(0.14cqmax,2.2px)"><br>not just make it move.</span></div></div>
-              <div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);color:#55554F">concept first, for the client</div>
+              <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 min(3cqmax, 48px)"><div style="font-size:min(2.8cqmax,44.8px);font-weight:700;letter-spacing:-0.03em;line-height:1.05">I'm willing to <span class="gc-onylw" style="background:var(--gc-yellow);color:var(--gc-ink);padding:0 min(0.4cqmax,6.4px)">…</span></div></div>
+              <div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);color:var(--gc-muted)">concept first, for the client</div>
             </div>
-            <div data-body="open" style="position:absolute;inset:0;display:none;flex-direction:column;justify-content:center;gap:min(2.2cqmax,35.2px);max-width:min(58cqmax,928px)">
-              <div style="font-size:min(4.6cqmax,73.6px);font-weight:700;letter-spacing:-0.03em;line-height:1.08">I'm willing to <span class="gc-onylw" style="background:#F5E14B;color:#10131A;padding:0 min(0.4cqmax,6.4px);box-decoration-break:clone">build the idea</span>, <span style="color:#8a877f;text-decoration:line-through;text-decoration-thickness:min(0.16cqmax,2.6px)">not just make it move.</span></div>
-              <div style="font-family:'Space Mono',monospace;font-size:min(1.2cqmax, 19.2px);color:#10131A;line-height:1.85;max-width:min(46cqmax,736px);font-weight:500">I'm after more than design and motion. I want to shape the concept, to find the most coherent, most fitting answer to a problem, the one that's right for the client. My skills exist to give me that: the tools and the vision to respond to a brief as clearly and intelligently as possible.</div>
+            <div data-scrollhint="" style="position:absolute;left:50%;bottom:min(0.6cqmax,9.6px);transform:translateX(-50%);z-index:5;display:none;align-items:center;gap:min(0.5cqmax,8px);font-family:'Space Mono',monospace;font-size:min(0.78cqmax,12.5px);color:rgba(16,19,26,0.72);letter-spacing:0.16em;pointer-events:none;background:rgba(201,198,190,0.9);padding:min(0.3cqmax,4.8px) min(0.85cqmax,13.6px)"><span>SCROLL</span><span class="gc-sigdot">↓</span></div><div data-body="open" data-split="4" style="position:absolute;inset:0;display:none;gap:min(2cqmax, 32px);padding-top:min(4.4cqmax,70.4px);box-sizing:border-box;overflow:hidden">
+              <div data-splitmain="" style="flex:1 1 0;min-width:0;min-height:0;display:flex;flex-direction:column;justify-content:safe center;gap:min(2.2cqmax, 35.2px);overflow-y:auto;padding-bottom:min(1.4cqmax, 22.4px)">
+                <div style="font-size:min(4.6cqmax,73.6px);font-weight:700;letter-spacing:-0.03em;line-height:1.08">I'm willing to <span class="gc-onylw" style="background:var(--gc-yellow);color:var(--gc-ink);padding:0 min(0.4cqmax,6.4px);box-decoration-break:clone">build the idea</span>, <span style="color:#8a877f;text-decoration:line-through;text-decoration-thickness:min(0.16cqmax,2.6px)">not just make it move.</span></div>
+                <div style="font-size:min(1.9cqmax, 30.4px);font-weight:500;line-height:1.3;letter-spacing:-0.01em;max-width:min(40cqmax, 640px)">I'm after more than design and motion.</div>
+                <div style="display:flex"><div data-morebtn="" onClick="{{ toggleMore }}" style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);font-weight:700;letter-spacing:0.12em;border:min(0.14cqmax, 2.2px) solid currentColor;padding:min(0.7cqmax, 11.2px) min(1.1cqmax, 17.6px);min-height:44px;display:flex;align-items:center;cursor:pointer;transition:background .2s ease,color .2s ease">READ MORE +</div></div>
+              </div>
+              <div data-splitpanel="" style="flex:0 0 0%;min-width:0;min-height:0;overflow:hidden;background:var(--gc-ink);color:#E7E7E1;transition:flex-basis .55s cubic-bezier(.22,1,.36,1)">
+                <div data-splitinner="" style="height:100%;overflow-y:auto;padding:min(2.2cqmax, 35.2px);display:flex;flex-direction:column;justify-content:safe center;gap:min(1.2cqmax, 19.2px);opacity:0;transition:opacity .3s ease">
+                  <div style="font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);font-weight:700;letter-spacing:0.14em;color:var(--gc-yellow)">WHAT I'M LOOKING FOR</div>
+                  <div style="font-family:'Space Mono',monospace;font-size:min(1.05cqmax, 16.8px);line-height:1.85;color:#E7E7E1">I want to shape the concept, to find the most coherent, most fitting answer to a problem, the one that's right for the client. My skills exist to give me that: the tools and the vision to respond to a brief as clearly and intelligently as possible.</div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div data-tile="3" onClick="{{ open3 }}" style="grid-column:1;grid-row:2;position:relative;overflow:hidden;min-width:0;min-height:0;background:#4B2BFF;color:#fff;cursor:pointer">
+      <div data-tile="3" onClick="{{ open3 }}" style="grid-column:1;grid-row:2;position:relative;overflow:hidden;min-width:0;min-height:0;background:var(--gc-accent);color:var(--gc-on-accent);cursor:pointer">
         <div data-pad="" style="position: absolute; inset: 0; padding: min(1.5cqmax, 24px); transition: padding .55s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1); left: 0px; top: 0px">
-          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:#fff">03</div><div style="flex:1"></div>
-            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:#fff">
+          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:var(--gc-yellow)">03</div><div style="flex:1"></div>
+            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:var(--gc-ink);background:var(--gc-yellow);padding:0 0.2em">
               <svg data-arrow="" viewBox="0 0 24 24" style="position:absolute;inset:0;width:100%;height:100%;transition:transform .3s cubic-bezier(.34,1.2,.5,1)"><g data-arrowg="" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" style="transition:stroke-width .25s ease"><line x1="6" y1="18" x2="17.5" y2="6.5"></line><polyline points="8.5,6 18,6 18,15.5"></polyline></g></svg>
-              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
+              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.05cqmax, 16.8px);font-weight:400;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
             </div>
           </div>
           <div data-title="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(4.2cqmax, 67.2px);font-size:min(3.4cqmax, 54.4px);font-weight:700;letter-spacing:-0.03em;line-height:0.9;text-align:left;transition:top .4s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.4,0,.35,1)">MY<br>JOURNEY</div>
           <div data-stage="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);bottom:min(1.5cqmax, 24px);top:min(9.6cqmax, 153.6px)">
             <div data-body="compact" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px)">
-              <div style="flex:1;display:flex;flex-direction:column;justify-content:center;min-height:0;padding:0 min(0.6cqmax, 9.6px)">
-                <div style="display:flex;align-items:center"><div style="width:min(1.3cqmax, 20.8px);height:min(1.3cqmax, 20.8px);background:#fff"></div><div style="flex:1;height:min(0.16cqmax, 2.6px);background:rgba(255,255,255,0.55)"></div><div style="width:min(1.3cqmax, 20.8px);height:min(1.3cqmax, 20.8px);background:#fff"></div><div style="flex:1;height:min(0.16cqmax, 2.6px);background:rgba(255,255,255,0.55)"></div><div style="width:min(1.3cqmax, 20.8px);height:min(1.3cqmax, 20.8px);background:#fff"></div><div style="flex:1;height:min(0.16cqmax, 2.6px);background:rgba(255,255,255,0.55)"></div><div style="width:min(1.7cqmax, 27.2px);height:min(1.7cqmax, 27.2px);background:#F5E14B"></div></div>
-              </div>
-              <div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);color:rgba(255,255,255,0.72)">code → design → motion → broadcast</div>
+              <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 min(3cqmax, 48px)"><div data-journey="" style="width:100%;text-align:left;display:flex;flex-direction:column;gap:min(1cqmax, 16px)">
+                <div data-jarrow="" style="display:flex;align-items:center"><div style="flex:1;height:min(0.14cqmax, 2.2px);background:var(--gc-on-accent);margin-right:calc(-1 * min(0.1cqmax, 1.6px))"></div><svg viewBox="0 0 10 12" style="width:min(0.7cqmax, 11.2px);height:min(0.84cqmax, 13.4px);flex:none;overflow:visible"><polyline points="2,1.5 8,6 2,10.5" fill="none" style="stroke:var(--gc-on-accent)" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"></polyline></svg></div>
+                <div data-jrow="" style="display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:min(0.8cqmax, 12.8px)"><div data-jitem="" style="min-width:0;display:flex;flex-direction:column;gap:min(0.4cqmax, 6.4px)"><div style="font-size:min(1.6cqmax, 25.6px);font-weight:700;letter-spacing:-0.02em;line-height:1">Code</div><div style="font-family:'Space Mono',monospace;font-size:min(0.7cqmax, 11.2px);color:rgba(16,19,26,0.85)">Epitech · 42</div></div><div data-jitem="" style="min-width:0;display:flex;flex-direction:column;gap:min(0.4cqmax, 6.4px)"><div style="font-size:min(1.6cqmax, 25.6px);font-weight:700;letter-spacing:-0.02em;line-height:1">NZ</div><div style="font-family:'Space Mono',monospace;font-size:min(0.7cqmax, 11.2px);color:rgba(16,19,26,0.85)">Gap year</div></div><div data-jitem="" style="min-width:0;display:flex;flex-direction:column;gap:min(0.4cqmax, 6.4px)"><div style="font-size:min(1.6cqmax, 25.6px);font-weight:700;letter-spacing:-0.02em;line-height:1">LISAA</div><div style="font-family:'Space Mono',monospace;font-size:min(0.7cqmax, 11.2px);color:rgba(16,19,26,0.85)">Design</div></div><div data-jitem="" style="min-width:0;display:flex;flex-direction:column;gap:min(0.4cqmax, 6.4px)"><div style="font-size:min(1.6cqmax, 25.6px);font-weight:700;letter-spacing:-0.02em;line-height:1;color:var(--gc-ink);background:var(--gc-yellow);padding:0.08em 0.2em;width:fit-content;white-space:nowrap">Gedeon</div><div style="font-family:'Space Mono',monospace;font-size:min(0.7cqmax, 11.2px);color:rgba(16,19,26,0.85)">2020 → now</div></div></div>
+              </div></div>
+              <div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);color:rgba(16,19,26,0.72)">from code to motion design</div>
             </div>
             <div data-body="open" style="position:absolute;inset:0;display:none;flex-direction:column;gap:min(1.2cqmax, 19.2px)">
-              <div data-howgrid="" style="flex:1;display:flex;gap:min(1.4cqmax, 22.4px)">
-                <div data-step="" data-accent="#10131A" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:min(0.9cqmax, 14.4px);cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(255,255,255,0.72)">CODE</div><div style="display:flex;align-items:center"><div data-dot="" style="width:min(0.9cqmax, 14.4px);height:min(0.9cqmax, 14.4px);background:#fff;transition:transform .25s ease,background .25s ease"></div><div style="flex:1;height:min(0.14cqmax, 2.2px);background:rgba(255,255,255,0.45)"></div></div><div data-htitle="" style="font-size:min(1.7cqmax, 27.2px);font-weight:700;letter-spacing:-0.02em;align-self:flex-start;padding:0 min(0.3cqmax, 4.8px);box-decoration-break:clone;transition:background .25s ease">CODE</div><div style="font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);color:#fff;line-height:1.6">Epitech / 42</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(255,255,255,0.96);line-height:1.6">After a science baccalauréat I went into programming, at Epitech then at 42, brand new at the time, a school with no teachers, built to teach you how to teach yourself. That still feels essential today. I loved it: code is what lets me create in the digital world we live in. But something was missing.</div></div>
-                <div data-step="" data-accent="#10131A" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:min(0.9cqmax, 14.4px);cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(255,255,255,0.72)">GAP YEAR</div><div style="display:flex;align-items:center"><div data-dot="" style="width:min(0.9cqmax, 14.4px);height:min(0.9cqmax, 14.4px);background:#fff;transition:transform .25s ease,background .25s ease"></div><div style="flex:1;height:min(0.14cqmax, 2.2px);background:rgba(255,255,255,0.45)"></div></div><div data-htitle="" style="font-size:min(1.7cqmax, 27.2px);font-weight:700;letter-spacing:-0.02em;align-self:flex-start;padding:0 min(0.3cqmax, 4.8px);box-decoration-break:clone;transition:background .25s ease">NEW ZEALAND</div><div style="font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);color:#fff;line-height:1.6">Working holiday</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(255,255,255,0.96);line-height:1.6">I took a gap year and left for New Zealand on a one-year working holiday visa. A break that helped me figure out what I actually wanted to make.</div></div>
-                <div data-step="" data-accent="#10131A" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:min(0.9cqmax, 14.4px);cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(255,255,255,0.72)">DESIGN → MOTION</div><div style="display:flex;align-items:center"><div data-dot="" style="width:min(0.9cqmax, 14.4px);height:min(0.9cqmax, 14.4px);background:#fff;transition:transform .25s ease,background .25s ease"></div><div style="flex:1;height:min(0.14cqmax, 2.2px);background:rgba(255,255,255,0.45)"></div></div><div data-htitle="" style="font-size:min(1.7cqmax, 27.2px);font-weight:700;letter-spacing:-0.02em;align-self:flex-start;padding:0 min(0.3cqmax, 4.8px);box-decoration-break:clone;transition:background .25s ease">MOTION DESIGN</div><div style="font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);color:#fff;line-height:1.6">LISAA, Paris</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(255,255,255,0.96);line-height:1.6">Back home I started graphic design studies. At the end of the first year I discovered motion design and fell in love with it. I went on to do a bachelor’s in graphic & motion design, then a master’s in art direction for animated media, both at LISAA Paris.</div></div>
-                <div data-step="" data-accent="#F5E14B" style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:min(0.9cqmax, 14.4px);cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:#F5E14B;font-weight:700">2020 → NOW</div><div style="display:flex;align-items:center"><div data-dot="" style="width:min(0.9cqmax, 14.4px);height:min(0.9cqmax, 14.4px);background:#F5E14B;transition:transform .25s ease,background .25s ease"></div><div style="flex:1;height:min(0.14cqmax, 2.2px);background:rgba(255,255,255,0.45)"></div></div><div data-htitle="" style="font-size:min(1.7cqmax, 27.2px);font-weight:700;letter-spacing:-0.02em;align-self:flex-start;padding:0 min(0.3cqmax, 4.8px);box-decoration-break:clone;transition:background .25s ease">GEDEON, PARIS</div><div style="font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);color:#fff;line-height:1.6">Broadcast design</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(255,255,255,0.96);line-height:1.6">Bachelor internship at Gedeon, a broadcast design studio, then my master’s there on a work-study contract. A bit of freelance after that, before coming back to Gedeon on a permanent contract. <a href="https://gedeon.com" target="_blank" style="color:#F5E14B;font-weight:600;text-decoration:none">gedeon.com</a></div></div>
+              <div data-howgrid="" style="flex:1;min-height:0;display:flex;gap:min(1.4cqmax, 22.4px)">
+                <div data-step="" data-accent="var(--gc-ink)" style="flex:1;display:flex;flex-direction:column;justify-content:safe center;gap:min(0.9cqmax, 14.4px);min-height:0;overflow-y:auto;cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(16,19,26,0.72)">CODE</div><div style="display:flex;align-items:center"><div data-dot="" style="width:min(0.9cqmax, 14.4px);height:min(0.9cqmax, 14.4px);background:var(--gc-on-accent);transition:transform .25s ease,background .25s ease"></div><div style="flex:1;height:min(0.14cqmax, 2.2px);background:rgba(16,19,26,0.45)"></div></div><div data-htitle="" style="font-size:min(1.7cqmax, 27.2px);font-weight:700;letter-spacing:-0.02em;align-self:flex-start;padding:0 min(0.3cqmax, 4.8px);box-decoration-break:clone;transition:background .25s ease">CODE</div><div style="font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);color:var(--gc-on-accent);line-height:1.6">Epitech / 42</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(16,19,26,0.96);line-height:1.6">After a science baccalauréat I went into programming, at Epitech then at 42, brand new at the time, a school with no teachers, built to teach you how to teach yourself. That still feels essential today. I loved it: code is what lets me create in the digital world we live in. But something was missing.</div></div>
+                <div data-step="" data-accent="var(--gc-ink)" style="flex:1;display:flex;flex-direction:column;justify-content:safe center;gap:min(0.9cqmax, 14.4px);min-height:0;overflow-y:auto;cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(16,19,26,0.72)">GAP YEAR</div><div style="display:flex;align-items:center"><div data-dot="" style="width:min(0.9cqmax, 14.4px);height:min(0.9cqmax, 14.4px);background:var(--gc-on-accent);transition:transform .25s ease,background .25s ease"></div><div style="flex:1;height:min(0.14cqmax, 2.2px);background:rgba(16,19,26,0.45)"></div></div><div data-htitle="" style="font-size:min(1.7cqmax, 27.2px);font-weight:700;letter-spacing:-0.02em;align-self:flex-start;padding:0 min(0.3cqmax, 4.8px);box-decoration-break:clone;transition:background .25s ease">NEW ZEALAND</div><div style="font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);color:var(--gc-on-accent);line-height:1.6">Working holiday</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(16,19,26,0.96);line-height:1.6">I took a gap year and left for New Zealand on a one-year working holiday visa. A break that helped me figure out what I actually wanted to make.</div></div>
+                <div data-step="" data-accent="var(--gc-ink)" style="flex:1;display:flex;flex-direction:column;justify-content:safe center;gap:min(0.9cqmax, 14.4px);min-height:0;overflow-y:auto;cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(16,19,26,0.72)">DESIGN → MOTION</div><div style="display:flex;align-items:center"><div data-dot="" style="width:min(0.9cqmax, 14.4px);height:min(0.9cqmax, 14.4px);background:var(--gc-on-accent);transition:transform .25s ease,background .25s ease"></div><div style="flex:1;height:min(0.14cqmax, 2.2px);background:rgba(16,19,26,0.45)"></div></div><div data-htitle="" style="font-size:min(1.7cqmax, 27.2px);font-weight:700;letter-spacing:-0.02em;align-self:flex-start;padding:0 min(0.3cqmax, 4.8px);box-decoration-break:clone;transition:background .25s ease">MOTION DESIGN</div><div style="font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);color:var(--gc-on-accent);line-height:1.6">LISAA, Paris</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(16,19,26,0.96);line-height:1.6">Back home I started graphic design studies. At the end of the first year I discovered motion design and fell in love with it. I went on to do a bachelor’s in graphic & motion design, then a master’s in art direction for animated media, both at LISAA Paris.</div></div>
+                <div data-step="" data-accent="var(--gc-yellow)" style="flex:1;display:flex;flex-direction:column;justify-content:safe center;gap:min(0.9cqmax, 14.4px);min-height:0;overflow-y:auto;cursor:default"><div style="font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:var(--gc-ink);background:var(--gc-yellow);padding:0 0.2em;font-weight:700;width:fit-content;white-space:nowrap">2020 → NOW</div><div style="display:flex;align-items:center"><div data-dot="" style="width:min(0.9cqmax, 14.4px);height:min(0.9cqmax, 14.4px);background:var(--gc-yellow);transition:transform .25s ease,background .25s ease"></div><div style="flex:1;height:min(0.14cqmax, 2.2px);background:rgba(16,19,26,0.45)"></div></div><div data-htitle="" style="font-size:min(1.7cqmax, 27.2px);font-weight:700;letter-spacing:-0.02em;align-self:flex-start;padding:0 min(0.3cqmax, 4.8px);box-decoration-break:clone;transition:background .25s ease">GEDEON, PARIS</div><div style="font-family:'Space Mono',monospace;font-size:min(0.8cqmax, 12.8px);color:var(--gc-on-accent);line-height:1.6">Broadcast design</div><div data-more="" style="max-height:0;opacity:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;font-family:'Space Mono',monospace;font-size:min(0.75cqmax, 12px);color:rgba(16,19,26,0.96);line-height:1.6">Bachelor internship at Gedeon, a broadcast design studio, then my master’s there on a work-study contract. A bit of freelance after that, before coming back to Gedeon on a permanent contract. <a href="https://gedeon.com" target="_blank" style="color:var(--gc-ink);background:var(--gc-yellow);padding:0 0.2em;font-weight:600;text-decoration:none">gedeon.com</a></div></div>
               </div>
-              <div style="font-family: 'Space Mono',monospace; font-size: min(0.9cqmax, 14.4px); color: rgba(255,255,255,0.72); text-align: right">NEXT STOP: YOUR STUDIO? → 05 CONTACT</div>
+              <div style="font-family: 'Space Mono',monospace; font-size: min(0.9cqmax, 14.4px); color: rgba(16,19,26,0.72); text-align: right">NEXT STOP: YOUR STUDIO? → 05 CONTACT</div>
             </div>
           </div>
         </div>
       </div>
 
-      <div data-tile="1" onClick="{{ open1 }}" style="grid-column:2;grid-row:2;position:relative;overflow:hidden;min-width:0;min-height:0;background:#4B2BFF;color:#fff;cursor:pointer">
+      <div data-tile="1" onClick="{{ open1 }}" style="grid-column:2;grid-row:2;position:relative;overflow:hidden;min-width:0;min-height:0;background:var(--gc-paper);color:var(--gc-ink);cursor:pointer">
+        <img src="uploads/pd/grasse-cover.gif" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none">
+        
         <div data-pad="" style="position:absolute;inset:0;padding:min(1.5cqmax, 24px);transition:padding .55s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)">
-          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:#F5E14B">01</div><div style="flex:1"></div>
-            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:#F5E14B">
+          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:var(--gc-yellow)">01</div><div style="flex:1"></div>
+            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:var(--gc-ink);background:var(--gc-yellow);padding:0 0.2em">
               <svg data-arrow="" viewBox="0 0 24 24" style="position:absolute;inset:0;width:100%;height:100%;transition:transform .3s cubic-bezier(.34,1.2,.5,1)"><g data-arrowg="" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" style="transition:stroke-width .25s ease"><line x1="6" y1="18" x2="17.5" y2="6.5"></line><polyline points="8.5,6 18,6 18,15.5"></polyline></g></svg>
-              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
+              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.05cqmax, 16.8px);font-weight:400;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
             </div>
           </div>
           <div data-title="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(4.2cqmax, 67.2px);font-size:min(3.4cqmax, 54.4px);font-weight:700;letter-spacing:-0.03em;line-height:0.9;text-align:left;transition:top .4s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.4,0,.35,1)">MY<br>WORK</div>
           <div data-stage="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);bottom:min(1.5cqmax, 24px);top:min(9.6cqmax, 153.6px)">
             <div data-body="compact" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px)">
-              <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:min(0.45cqmax, 7.2px);align-content:center;min-height:0">
-                <div style="aspect-ratio:16/9;background:rgba(255,255,255,0.16);border:min(0.1cqmax,1.6px) solid rgba(255,255,255,0.28);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" style="width:24%;height:24%"><polygon points="8,6 8,18 18,12" fill="#F5E14B"></polygon></svg></div>
-                <div style="aspect-ratio:16/9;background:rgba(255,255,255,0.10);border:min(0.1cqmax,1.6px) solid rgba(255,255,255,0.22)"></div>
-                <div style="aspect-ratio:16/9;background:rgba(255,255,255,0.13);border:min(0.1cqmax,1.6px) solid rgba(255,255,255,0.22)"></div>
-                <div style="aspect-ratio:16/9;background:rgba(255,255,255,0.13);border:min(0.1cqmax,1.6px) solid rgba(255,255,255,0.22)"></div>
-                <div style="aspect-ratio:16/9;background:rgba(255,255,255,0.10);border:min(0.1cqmax,1.6px) solid rgba(255,255,255,0.22)"></div>
-                <div style="aspect-ratio:16/9;background:rgba(255,255,255,0.13);border:min(0.1cqmax,1.6px) solid rgba(255,255,255,0.22)"></div>
-              </div>
-              <div style="display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);opacity:0.85">a full reel · 92% under NDA</div><div style="flex:1"></div><div class="gc-onylw" style="background:#F5E14B;color:#10131A;font-family:'Space Mono',monospace;font-size:min(0.7cqmax, 11.2px);font-weight:700;padding:min(0.3cqmax, 4.8px) min(0.7cqmax, 11.2px)">ASK FOR THE KEY</div></div>
+              <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 min(3cqmax, 48px)"></div>
+              <div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);color:var(--gc-muted)">23 projects · most under NDA</div>
             </div>
-            <div data-body="open" style="position:absolute;inset:0;display:none;flex-direction:column;gap:min(0.9cqmax, 14.4px)"><div data-gallery="" style="position:relative;flex:1;min-height:0"><div data-galtrack="" style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden"></div><div data-galcount="" style="position:absolute;top:0;right:0;z-index:4;font-family:'Space Mono',monospace;font-size:min(0.8cqmax,12.8px);color:rgba(255,255,255,0.65);letter-spacing:0.1em;background:rgba(11,12,15,0.55);padding:min(0.3cqmax,4.8px) min(0.6cqmax,9.6px);pointer-events:none"></div><div data-galhint="" style="position:absolute;left:50%;bottom:min(0.4cqmax,6.4px);transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:min(0.5cqmax,8px);font-family:'Space Mono',monospace;font-size:min(0.78cqmax,12.5px);color:rgba(255,255,255,0.7);letter-spacing:0.14em;background:rgba(11,12,15,0.55);padding:min(0.3cqmax,4.8px) min(0.8cqmax,12.8px);pointer-events:none;transition:opacity .3s ease"><span>SCROLL FOR NEXT</span><span class="gc-sigdot">↓</span></div><div data-ndagate="" style="position:absolute;inset:0;z-index:6;background:rgba(11,12,15,0.975);display:none;flex-direction:column;align-items:center;justify-content:center;gap:min(0.9cqmax,14.4px);padding:min(2.4cqmax,38.4px);text-align:center"><div onClick="{{ ndaSkip }}" title="Close" style="position:absolute;top:min(1.4cqmax,22.4px);right:min(1.4cqmax,22.4px);width:min(2.4cqmax,38.4px);height:min(2.4cqmax,38.4px);display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax,22.4px);font-weight:700;color:#fff;cursor:pointer;border:min(0.14cqmax,2.2px) solid rgba(255,255,255,0.3)">✕</div><div style="font-size:min(2.6cqmax,41.6px);font-weight:700;letter-spacing:-0.02em;color:#fff;line-height:1.02;max-width:min(42cqmax,672px)">Most of my work lives in <span style="color:#F5E14B">Gedeon</span> projects.</div><a href="https://gedeon.com" target="_blank" style="font-size:min(2cqmax,32px);font-weight:700;color:#fff;background:#4B2BFF;text-decoration:none;letter-spacing:-0.01em;padding:min(0.6cqmax,9.6px) min(1.6cqmax,25.6px);display:inline-block">gedeon.com</a><div style="font-family:'Space Mono',monospace;font-size:min(1cqmax,16px);color:#F5E14B;font-weight:700;letter-spacing:0.12em">ENTER THE KEY TO UNLOCK THE FULL REEL</div><div style="display:flex;gap:min(0.5cqmax,8px);align-items:stretch;width:100%;max-width:min(40cqmax,640px)"><input data-keyinput="" onKeyDown="{{ keyDown }}" placeholder="THE KEY" style="flex:1;min-width:0;background:#15181F;border:min(0.2cqmax,3.2px) solid #F5E14B;color:#fff;font-family:'Space Mono',monospace;font-size:min(1.15cqmax,18.4px);letter-spacing:0.12em;padding:min(1.15cqmax,18.4px) min(1.2cqmax,19.2px);outline:none"><div onClick="{{ unlockWork }}" class="gc-onylw" style="background:#F5E14B;color:#10131A;font-family:'Space Mono',monospace;font-size:min(1.05cqmax,16.8px);font-weight:700;padding:0 min(2cqmax,32px);display:flex;align-items:center;cursor:pointer;letter-spacing:0.08em">UNLOCK</div></div><div data-keymsg="" style="display:none;font-family:'Space Mono',monospace;font-size:min(0.78cqmax,12.5px);color:#F5E14B;letter-spacing:0.06em"></div></div><div data-worklight="" style="position:absolute;inset:0;z-index:20;display:none;flex-direction:column;background:rgba(11,12,15,0.97);padding:min(1.6cqmax,25.6px);gap:min(0.8cqmax,12.8px);cursor:pointer"><div style="display:flex;align-items:baseline;gap:min(0.7cqmax,11.2px);flex:none"><div data-lighttitle="" style="font-size:min(1.9cqmax,30.4px);font-weight:700;letter-spacing:-0.02em;color:#fff"></div><div style="flex:1"></div><div style="font-family:'Space Mono',monospace;font-size:min(0.72cqmax,11.5px);color:#F5E14B;letter-spacing:0.08em">CLICK TO CLOSE ✕</div></div><div data-lightslot="" style="flex:1;min-height:0;display:flex;flex-direction:column;gap:min(0.6cqmax,9.6px);overflow:auto"></div><div data-lightdesc="" style="font-family:'Space Mono',monospace;font-size:min(0.82cqmax,13.1px);color:rgba(255,255,255,0.75);line-height:1.6;flex:none"></div></div></div></div>
+            <div data-body="open" style="position:absolute;inset:0;display:none;flex-direction:column;gap:min(0.9cqmax, 14.4px)"><div data-gallery="" style="position:relative;flex:1;min-height:0"><div data-galtrack="" style="position:absolute;inset:0;overflow-y:auto;overflow-x:hidden"></div><div data-galcount="" style="position:absolute;top:0;right:0;z-index:4;font-family:'Space Mono',monospace;font-size:min(0.8cqmax,12.8px);color:rgba(255,255,255,0.65);letter-spacing:0.1em;background:rgba(11,12,15,0.55);padding:min(0.3cqmax,4.8px) min(0.6cqmax,9.6px);pointer-events:none"></div><div data-galhint="" style="position:absolute;left:50%;bottom:min(0.4cqmax,6.4px);transform:translateX(-50%);z-index:4;display:flex;align-items:center;gap:min(0.5cqmax,8px);font-family:'Space Mono',monospace;font-size:min(0.78cqmax,12.5px);color:rgba(255,255,255,0.7);letter-spacing:0.14em;background:rgba(11,12,15,0.55);padding:min(0.3cqmax,4.8px) min(0.8cqmax,12.8px);pointer-events:none;transition:opacity .3s ease"><span>SCROLL FOR NEXT</span><span class="gc-sigdot">↓</span></div><div data-ndagate="" style="position:absolute;inset:0;z-index:6;background:rgba(11,12,15,0.975);display:none;flex-direction:column;align-items:center;justify-content:center;gap:min(0.7cqmax,11.2px);padding:min(2.4cqmax,38.4px);text-align:center"><div onClick="{{ ndaSkip }}" title="Close" style="position:absolute;top:min(1.4cqmax,22.4px);right:min(1.4cqmax,22.4px);width:min(2.4cqmax,38.4px);height:min(2.4cqmax,38.4px);display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax,22.4px);font-weight:700;color:#fff;cursor:pointer;border:min(0.14cqmax,2.2px) solid rgba(255,255,255,0.3)">✕</div><div style="font-size:min(1.9cqmax,30.4px);font-weight:700;letter-spacing:-0.02em;color:#fff;line-height:1.05;max-width:min(34cqmax,544px)">Most of my work lives in <span style="color:var(--gc-yellow)">Gedeon</span> projects.</div><a href="https://gedeon.com" target="_blank" class="gc-gedlink" style="font-size:min(1.35cqmax,21.6px);font-weight:700;color:#fff;background:var(--gc-accent);text-decoration:underline;text-underline-offset:0.18em;text-decoration-thickness:min(0.14cqmax,2.2px);letter-spacing:-0.01em;padding:min(0.5cqmax,8px) min(1.3cqmax,20.8px);display:inline-block">gedeon.com</a><div style="display:flex;gap:min(0.4cqmax,6.4px);align-items:stretch;width:100%;max-width:min(19cqmax,304px)"><input data-keyinput="" onKeyDown="{{ keyDown }}" placeholder="THE KEY" style="flex:1;min-width:0;background:#15181F;border:min(0.12cqmax,1.9px) solid var(--gc-yellow);color:#fff;font-family:'Space Mono',monospace;font-size:min(0.78cqmax,12.5px);letter-spacing:0.1em;padding:min(0.55cqmax,8.8px) min(0.7cqmax,11.2px);outline:none"><div onClick="{{ unlockWork }}" class="gc-onylw" style="background:var(--gc-yellow);color:var(--gc-ink);font-family:'Space Mono',monospace;font-size:min(0.72cqmax,11.5px);font-weight:700;padding:0 min(1.1cqmax,17.6px);display:flex;align-items:center;cursor:pointer;letter-spacing:0.08em">UNLOCK</div></div><div style="font-family:'Space Mono',monospace;font-size:min(0.72cqmax,11.5px);color:rgba(255,255,255,0.55);line-height:1.5;max-width:min(30cqmax,480px);letter-spacing:0.02em">Some of this work is under NDA. The key to unlock the full reel is available in my CV.</div><div data-keymsg="" style="display:none;font-family:'Space Mono',monospace;font-size:min(0.78cqmax,12.5px);color:var(--gc-yellow);letter-spacing:0.06em"></div></div><div data-worklight="" style="position:absolute;inset:0;z-index:20;display:none;flex-direction:column;background:rgba(11,12,15,0.97);padding:min(1.6cqmax,25.6px);gap:min(0.8cqmax,12.8px);cursor:pointer"><div style="display:flex;align-items:baseline;gap:min(0.7cqmax,11.2px);flex:none"><div data-lighttitle="" style="font-size:min(1.9cqmax,30.4px);font-weight:700;letter-spacing:-0.02em;color:#fff"></div><div style="flex:1"></div><div style="font-family:'Space Mono',monospace;font-size:min(0.72cqmax,11.5px);color:var(--gc-yellow);letter-spacing:0.08em">CLICK TO CLOSE ✕</div></div><div data-lightslot="" style="flex:1;min-height:0;display:flex;flex-direction:column;gap:min(0.6cqmax,9.6px);overflow:auto"></div><div data-lightdesc="" style="font-family:'Space Mono',monospace;font-size:min(0.82cqmax,13.1px);color:rgba(255,255,255,0.75);line-height:1.6;flex:none"></div></div></div></div>
           </div>
         </div>
       </div>
 
-      <div data-tile="5" onClick="{{ open5 }}" style="grid-column:3;grid-row:2;position:relative;overflow:hidden;min-width:0;min-height:0;background:#10131A;color:#fff;cursor:pointer">
+      <div data-tile="5" onClick="{{ open5 }}" style="grid-column:3;grid-row:2;position:relative;overflow:hidden;min-width:0;min-height:0;background:var(--gc-accent);color:var(--gc-on-accent);cursor:pointer">
         <div data-pad="" style="position:absolute;inset:0;padding:min(1.5cqmax, 24px);transition:padding .55s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1)">
-          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:#F5E14B">05</div><div style="flex:1"></div>
-            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:#F5E14B">
+          <div style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(1.5cqmax, 24px);display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div data-num="" style="font-family:'Space Mono',monospace;font-size:min(0.9cqmax, 14.4px);color:var(--gc-yellow)">05</div><div style="flex:1"></div>
+            <div data-actionbox="" style="position:relative;width:min(2.2cqmax, 35.2px);height:min(2.2cqmax, 35.2px);flex:none;color:var(--gc-ink);background:var(--gc-yellow);padding:0 0.2em">
               <svg data-arrow="" viewBox="0 0 24 24" style="position:absolute;inset:0;width:100%;height:100%;transition:transform .3s cubic-bezier(.34,1.2,.5,1)"><g data-arrowg="" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" style="transition:stroke-width .25s ease"><line x1="6" y1="18" x2="17.5" y2="6.5"></line><polyline points="8.5,6 18,6 18,15.5"></polyline></g></svg>
-              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
+              <div data-act="close" onClick="{{ close }}" style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:min(1.05cqmax, 16.8px);font-weight:400;opacity:0;pointer-events:none;transition:opacity .3s,box-shadow .2s ease">✕</div>
             </div>
           </div>
           <div data-title="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);top:min(4.2cqmax, 67.2px);font-size:min(3.4cqmax, 54.4px);font-weight:700;letter-spacing:-0.03em;line-height:0.9;text-align:left;transition:top .4s cubic-bezier(.22,1,.36,1),transform .3s cubic-bezier(.4,0,.35,1)">CONTACT</div>
           <div data-stage="" style="position:absolute;left:min(1.5cqmax, 24px);right:min(1.5cqmax, 24px);bottom:min(1.5cqmax, 24px);top:min(9.6cqmax, 153.6px)">
             <div data-body="compact" style="position:absolute;inset:0;display:flex;flex-direction:column;gap:min(0.9cqmax, 14.4px)">
-              <div style="flex:1;display:flex;align-items:center;gap:min(0.9cqmax, 14.4px);min-height:0"><div style="font-size:min(1.8cqmax, 28.8px);font-weight:700;opacity:0.5">→</div><div style="font-size:min(2.4cqmax, 38.4px);font-weight:700;opacity:0.75">→</div><div style="font-size:min(3.1cqmax, 49.6px);font-weight:700">→</div></div>
-              <div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px)">gaspard.courrier.design@gmail.com</div>
+              <div style="flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:0 min(3cqmax, 48px)"><div style="display:flex;align-items:baseline;justify-content:center;gap:min(0.6cqmax, 9.6px);white-space:nowrap"><div style="font-size:min(2.8cqmax,44.8px);font-weight:700;letter-spacing:-0.03em;line-height:1.05">Say hello</div><div data-hello="" style="font-size:min(2.8cqmax,44.8px);font-weight:700;line-height:1.05;transition:transform .35s cubic-bezier(.34,1.3,.5,1)">→</div></div></div>
+              <div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);color:rgba(16,19,26,0.72)">gaspard.courrier.design@gmail.com</div>
             </div>
             <div data-body="open" style="position:absolute;inset:0;display:none;flex-direction:column;gap:min(1.2cqmax, 19.2px)">
               <div style="flex:1"></div>
               <div style="font-size:min(5.4cqmax, 86.4px);font-weight:700;letter-spacing:-0.03em;line-height:0.92">Let's get<br>to work.</div>
-              <div style="display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div style="width:min(0.75cqmax, 12px);height:min(0.75cqmax, 12px);border-radius:50%;background:#F5E14B"></div><div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);opacity:0.85">CURRENTLY IN A FULL-TIME CONTRACT, BUT OPEN TO OPPORTUNITIES</div></div>
+              <div style="display:flex;align-items:center;gap:min(0.6cqmax, 9.6px)"><div style="width:min(0.75cqmax, 12px);height:min(0.75cqmax, 12px);border-radius:50%;background:var(--gc-yellow)"></div><div style="font-family:'Space Mono',monospace;font-size:min(0.85cqmax, 13.6px);opacity:0.85">CURRENTLY IN A FULL-TIME CONTRACT, BUT OPEN TO OPPORTUNITIES</div></div>
               <div style="flex:1"></div>
               <div style="display:flex;gap:min(0.5cqmax, 8px)">
-                <a class="gc-onylw" href="mailto:gaspard.courrier.design@gmail.com" data-social="" data-accent="#F5E14B" style="flex:1;background:#F5E14B;color:#10131A;padding:min(1.4cqmax, 22.4px) min(1cqmax, 16px);display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;cursor:pointer;text-decoration:none">Email</a>
-                <a href="https://instagram.com/gaspard.courrier" target="_blank" data-social="" data-accent="#4B2BFF" style="flex:1;background:#4B2BFF;color:#fff;padding:min(1.4cqmax, 22.4px) min(1cqmax, 16px);display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;cursor:pointer;text-decoration:none">Instagram</a>
-                <a href="Gaspard-CV.pdf" target="_blank" data-social="" data-accent="#B7B4AC" style="flex:1;background:#B7B4AC;color:#10131A;padding:min(1.4cqmax, 22.4px) min(1cqmax, 16px);display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;cursor:pointer;text-decoration:none">Resume</a>
+                <a class="gc-onylw" href="mailto:gaspard.courrier.design@gmail.com" data-social="" data-accent="var(--gc-yellow)" style="flex:1;background:var(--gc-yellow);color:var(--gc-ink);padding:min(1.4cqmax, 22.4px) min(1cqmax, 16px);display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;cursor:pointer;text-decoration:none">Email</a>
+                <a href="tel:+33698250358" data-social="" data-accent="transparent" style="flex:1;background:transparent;box-shadow:inset 0 0 0 2px var(--gc-ink);color:var(--gc-ink);padding:min(1.4cqmax, 22.4px) min(1cqmax, 16px);display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;cursor:pointer;text-decoration:none">06 98 25 03 58</a>
+                <a href="https://instagram.com/gaspard.courrier" target="_blank" data-social="" data-accent="var(--gc-ink)" style="flex:1;background:var(--gc-ink);color:var(--gc-yellow);padding:min(1.4cqmax, 22.4px) min(1cqmax, 16px);display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;cursor:pointer;text-decoration:none">Instagram</a>
+                <a href="Gaspard-CV.pdf" target="_blank" data-social="" data-accent="#B7B4AC" style="flex:1;background:#B7B4AC;color:var(--gc-ink);padding:min(1.4cqmax, 22.4px) min(1cqmax, 16px);display:flex;align-items:center;justify-content:center;font-size:min(1.4cqmax, 22.4px);font-weight:700;cursor:pointer;text-decoration:none">Resume</a>
               </div>
             </div>
           </div>
@@ -228,9 +248,9 @@ video, video::-webkit-media-controls-enclosure, video::-webkit-media-controls-pa
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { open: -1, intro: 'done', phase: 0, night: (() => { try { return localStorage.getItem('gc_theme') === 'night'; } catch (e) { return false; } })() };
+  state = { more: false, open: -1, intro: 'done', phase: 0, night: false };
 
-  setBoard = (el) => { this.boardEl = el; if (el) { this._renderWork(); this._bindHover(); this._bindCardHover(); this._bindWork(); this._fit(); this._layout(); if (this.state.intro === 'done' && !this._entered) { this._entered = true; setTimeout(() => this._animateEntry(), 60); } } };
+  setBoard = (el) => { this.boardEl = el; if (el) { const rv = el.querySelector('[data-reel]'); if (rv) { rv.muted = true; const pp = rv.play(); if (pp && pp.catch) pp.catch(() => {}); } this._renderWork(); this._bindHover(); this._bindCardHover(); this._bindWork(); this._fit(); this._layout(); if (this.state.intro === 'done' && !this._entered) { this._entered = true; setTimeout(() => this._animateEntry(), 60); } } };
 
   _renderWork() {
     if (this._workRendered) return;
@@ -241,9 +261,9 @@ class Component extends DCLogic {
     const card = (p, cat) => {
       const lk = !!p.locked;
       return '<div data-work="" data-cat="' + cat + '" data-locked="' + (lk ? '1' : '0') + '" data-workid="' + A(p.id) + '" data-worktitle="' + A(p.title) + '" data-coversrc="' + A(p.cover) + '" data-video="' + A((p.videos || []).join(',')) + '" data-workdesc="' + A(p.desc) + '" data-workmeta="' + A(p.meta) + '" style="height:100%;scroll-snap-align:start;scroll-snap-stop:always;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:min(1cqmax,16px);cursor:pointer;' + (lk ? 'display:none;' : '') + '">'
-        + '<div data-media="" style="position:relative;flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);outline:0 solid #F5E14B;transition:outline-width .15s ease">'
+        + '<div data-media="" style="position:relative;flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.04);outline:0 solid var(--gc-yellow);transition:outline-width .15s ease">'
           + '<img data-cover="" alt="' + A(p.title) + '"' + (lk ? '' : ' src="' + A(p.cover) + '"') + ' style="width:100%;height:100%;object-fit:contain;display:block">'
-          + '<div data-playic="" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;pointer-events:none;background:rgba(11,12,15,0.2)"><div style="width:min(4cqmax,64px);height:min(4cqmax,64px);border-radius:50%;background:rgba(16,19,26,0.6);border:min(0.14cqmax,2.2px) solid #F5E14B;display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" style="width:40%;height:40%"><polygon points="8,5 8,19 19,12" fill="#F5E14B"></polygon></svg></div></div>'
+          + '<div data-playic="" style="position:absolute;inset:0;display:none;align-items:center;justify-content:center;pointer-events:none;background:rgba(11,12,15,0.2)"><div style="width:min(4cqmax,64px);height:min(4cqmax,64px);border-radius:50%;background:rgba(16,19,26,0.6);border:min(0.14cqmax,2.2px) solid var(--gc-yellow);display:flex;align-items:center;justify-content:center"><svg viewBox="0 0 24 24" style="width:40%;height:40%"><polygon points="8,5 8,19 19,12" style="fill:var(--gc-yellow)"></polygon></svg></div></div>'
         + '</div>'
         + '<div style="flex:none;display:flex;flex-direction:column;align-items:center;gap:min(0.3cqmax,4.8px);text-align:center;padding-bottom:min(2.4cqmax,38.4px)">'
           + '<div style="color:#fff;font-weight:700;font-size:min(1.6cqmax,25.6px);letter-spacing:-0.02em;line-height:1">' + A(p.title) + '</div>'
@@ -472,7 +492,7 @@ class Component extends DCLogic {
     const arrowG = cur.querySelector('g');
     const svg = cur.querySelector('svg');
     if (svg) { svg.style.transition = 'transform .26s cubic-bezier(.34,1.4,.5,1)'; svg.style.transformOrigin = '6.5px 6.5px'; }
-    const ACCENT = '#4B2BFF', BASE = '#F5E14B';
+    const ACCENT = 'var(--gc-accent)', BASE = 'var(--gc-yellow)';
     this._flashUntil = 0;
     const isYellowAt = (x, y) => {
       let el = document.elementFromPoint(x, y);
@@ -526,7 +546,7 @@ class Component extends DCLogic {
   }
   _spawnTrail(trail, x, y, color) {
     const d = document.createElement('div');
-    d.style.cssText = 'position:absolute;left:0;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:' + (color || '#F5E14B') + ';transform:translate(' + x + 'px,' + y + 'px);opacity:0.45;transition:opacity .55s ease, transform .55s ease;pointer-events:none';
+    d.style.cssText = 'position:absolute;left:0;top:0;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:' + (color || 'var(--gc-yellow)') + ';transform:translate(' + x + 'px,' + y + 'px);opacity:0.45;transition:opacity .55s ease, transform .55s ease;pointer-events:none';
     trail.appendChild(d);
     requestAnimationFrame(() => { d.style.opacity = '0'; d.style.transform = 'translate(' + x + 'px,' + y + 'px) scale(0.3)'; });
     setTimeout(() => { d.remove(); }, 580);
@@ -564,9 +584,139 @@ class Component extends DCLogic {
     setTimeout(() => this._animateEntry(), 80);
   }
   skip = () => this._finish();
-  close = (e) => { if (e && e.stopPropagation) e.stopPropagation(); if (this._closeLight) this._closeLight(); this.setState({ open: -1 }); };
+  close = (e) => { if (e && e.stopPropagation) e.stopPropagation(); if (this._closeLight) this._closeLight(); this.setState({ open: -1, more: false }); };
 
-  _open(i) { if (this.state.open === i) return; this._sweepDone = false; this.setState({ open: i }); if (i === 1) setTimeout(() => this._openWork(), 60); }
+  _open(i) { if (i === 1) { this._workView(); return; } if (this.state.open === i) return; this._sweepDone = false; this.setState({ open: i, more: false }); }
+
+  _workView() {
+    if (this._wv) return;
+    const data = window.GC_PROJECTS || { open: [], client: [] };
+    const tile = this.boardEl && this.boardEl.querySelector('[data-tile="1"]');
+    const tileRect = () => tile ? tile.getBoundingClientRect() : { left: innerWidth / 2 - 100, top: innerHeight / 2 - 60, width: 200, height: 120 };
+    const M = "'Space Mono',monospace";
+    const EASE = 'cubic-bezier(.22,1,.36,1)';
+    const list = () => data.open.concat(this._unlocked ? data.client : [{ gate: true }]);
+    let idx = Math.max(0, data.open.findIndex((p) => p.id === 'pd-grasse'));
+    const P = 'clamp(16px, 2.2vw, 36px)';
+    const btn = 'display:flex;align-items:center;justify-content:center;min-width:44px;height:44px;padding:0 12px;background:transparent;color:#fff;border:2px solid #fff;font-family:' + M + ';font-size:13px;font-weight:700;letter-spacing:0.08em;cursor:pointer;transition:background .2s ease,color .2s ease';
+    const scrim = document.createElement('div');
+    scrim.style.cssText = 'position:fixed;inset:0;z-index:89;background:var(--gc-ink);opacity:0;transition:opacity .5s ease';
+    const ov = document.createElement('div');
+    ov.style.cssText = "position:fixed;z-index:90;background:var(--gc-ink);overflow:hidden;color:#fff;font-family:'Space Grotesk',sans-serif;transition:left .62s " + EASE + ",top .62s " + EASE + ",width .62s " + EASE + ",height .62s " + EASE;
+    const place = (r) => { ov.style.left = r.left + 'px'; ov.style.top = r.top + 'px'; ov.style.width = r.width + 'px'; ov.style.height = r.height + 'px'; };
+    const full = () => { const p = Math.round(Math.min(innerWidth, innerHeight) * 0.02); return { left: p, top: p, width: innerWidth - 2 * p, height: innerHeight - 2 * p }; };
+    ov.innerHTML =
+      '<div data-wmedia="" style="position:absolute;inset:0"></div>' +
+      '<div data-wshade="" style="position:absolute;inset:0;background:linear-gradient(to top, rgba(16,19,26,0.94) 0%, rgba(16,19,26,0.55) 30%, rgba(16,19,26,0) 58%);pointer-events:none;transition:opacity .35s ease"></div>' +
+      '<div data-wui="" style="position:absolute;inset:0;opacity:0;transition:opacity .4s ease;pointer-events:none">' +
+        '<div style="position:absolute;left:' + P + ';right:' + P + ';top:' + P + ';display:flex;align-items:center;justify-content:space-between;gap:12px;pointer-events:auto">' +
+          '<div style="display:flex;align-items:center;gap:10px"><button data-wprev="" style="' + btn + '">←</button><div data-wcount="" style="font-family:' + M + ';font-size:13px;letter-spacing:0.1em;min-width:64px;text-align:center"></div><button data-wnext="" style="' + btn + '">→</button><button data-wstop="" style="' + btn + ';display:none;margin-left:10px">■ INFO</button></div>' +
+          '<button data-wclose="" style="' + btn + ';font-size:20px;font-weight:400">×</button>' +
+        '</div>' +
+        '<div data-wtext="" style="position:absolute;left:' + P + ';right:' + P + ';bottom:' + P + ';display:flex;flex-direction:column;gap:14px;pointer-events:auto;transition:opacity .3s ease,transform .45s ' + EASE + '"></div>' +
+      '</div>';
+    const media = ov.querySelector('[data-wmedia]'), ui = ov.querySelector('[data-wui]'), text = ov.querySelector('[data-wtext]'), shade = ov.querySelector('[data-wshade]');
+    const stopBtn = ov.querySelector('[data-wstop]');
+    [...ov.querySelectorAll('button')].forEach((b) => { b.addEventListener('mouseenter', () => { b.style.background = 'var(--gc-yellow)'; b.style.color = 'var(--gc-ink)'; b.style.borderColor = 'var(--gc-yellow)'; }); b.addEventListener('mouseleave', () => { b.style.background = 'transparent'; b.style.color = '#fff'; b.style.borderColor = '#fff'; }); });
+    const esc = (s) => String(s || '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+    let playing = false;
+    const setLayer = (el) => {
+      el.style.position = 'absolute'; el.style.inset = '0'; el.style.opacity = '0'; el.style.transition = 'opacity .45s ease';
+      const old = [...media.children];
+      media.appendChild(el);
+      requestAnimationFrame(() => requestAnimationFrame(() => { el.style.opacity = '1'; }));
+      setTimeout(() => old.forEach((o) => { if (o.pause) o.pause(); o.remove(); }), 480);
+    };
+    const coverLayer = (p) => {
+      if (p.gate) { const d = document.createElement('div'); d.style.background = 'var(--gc-ink)'; return d; }
+      const img = document.createElement('img'); img.src = p.cover; img.alt = ''; img.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block'; return img;
+    };
+    const showInfo = (on) => { text.style.opacity = on ? '1' : '0'; text.style.pointerEvents = on ? 'auto' : 'none'; shade.style.opacity = on ? '1' : '0'; stopBtn.style.display = on ? 'none' : 'flex'; };
+    const play = (src) => {
+      const v = document.createElement('video'); v.src = src; v.controls = true; v.autoplay = true; v.playsInline = true;
+      v.style.cssText = 'width:100%;height:100%;object-fit:contain;background:#000;cursor:none';
+      v.addEventListener('ended', () => stop());
+      setLayer(v); playing = true; showInfo(false);
+      const pp = v.play(); if (pp && pp.catch) pp.catch(() => {});
+    };
+    const stop = () => { if (!playing) return; playing = false; setLayer(coverLayer(list()[idx])); showInfo(true); };
+    const fillText = (p) => {
+      if (p.gate) {
+        text.innerHTML =
+          '<div style="font-family:' + M + ';font-size:12px;letter-spacing:0.16em;color:var(--gc-yellow)">CLIENT WORK · UNDER NDA</div>' +
+          '<div style="font-size:clamp(30px,4.6vw,76px);font-weight:700;letter-spacing:-0.03em;line-height:1">Client work</div>' +
+          '<div style="font-size:clamp(14px,1.2vw,19px);line-height:1.5;max-width:640px;color:rgba(255,255,255,0.85);text-wrap:pretty">Most of my client projects are under NDA. Enter the key from my CV to unlock them.</div>' +
+          '<form data-wkey="" style="display:flex;flex-wrap:wrap;gap:10px;align-items:center"><input data-wkeyin="" type="text" autocomplete="off" placeholder="KEY" style="height:44px;width:200px;max-width:60vw;padding:0 12px;background:transparent;border:2px solid #fff;color:#fff;font-family:' + M + ';font-size:13px;letter-spacing:0.1em;outline:none"><button type="submit" style="' + btn + ';background:var(--gc-yellow);color:var(--gc-ink);border-color:var(--gc-yellow)">UNLOCK</button><div data-wkeymsg="" style="font-family:' + M + ';font-size:12px;color:var(--gc-yellow)"></div></form>';
+        const form = text.querySelector('[data-wkey]');
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const val = (text.querySelector('[data-wkeyin]').value || '').trim().toLowerCase();
+          if (val === 'motiondesign') { this._unlocked = true; go(idx, 0); }
+          else { text.querySelector('[data-wkeymsg]').textContent = 'WRONG KEY'; }
+        });
+        return;
+      }
+      const vids = p.videos || [];
+      let actions = '';
+      if (vids.length) {
+        actions += '<button data-wplay="0" style="' + btn + ';background:var(--gc-yellow);color:var(--gc-ink);border-color:var(--gc-yellow)">▶ PLAY</button>';
+        if (vids.length > 1) vids.slice(1).forEach((_, k) => { actions += '<button data-wplay="' + (k + 1) + '" style="' + btn + '">' + String(k + 2).padStart(2, '0') + '</button>'; });
+      }
+      text.innerHTML =
+        '<div style="font-size:clamp(30px,4.6vw,76px);font-weight:700;letter-spacing:-0.03em;line-height:1">' + esc(p.title) + '</div>' +
+        '<div style="font-size:clamp(14px,1.2vw,19px);line-height:1.5;max-width:720px;color:rgba(255,255,255,0.88);text-wrap:pretty">' + esc(p.desc) + '</div>' +
+        '<div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px"><div style="font-family:' + M + ';font-size:12px;letter-spacing:0.04em;color:rgba(255,255,255,0.7)">' + esc(p.meta) + '</div>' + (actions ? '<div style="display:flex;gap:8px">' + actions + '</div>' : '') + '</div>';
+      text.querySelectorAll('[data-wplay]').forEach((b) => b.addEventListener('click', (e) => { e.stopPropagation(); play(vids[+b.getAttribute('data-wplay')]); }));
+    };
+    const go = (n, dir) => {
+      const L2 = list(); idx = (n + L2.length) % L2.length; const p = L2[idx];
+      playing = false; stopBtn.style.display = 'none'; shade.style.opacity = '1';
+      ov.querySelector('[data-wcount]').textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(L2.length).padStart(2, '0');
+      setLayer(coverLayer(p));
+      text.style.transition = 'opacity .2s ease,transform .2s ease';
+      text.style.opacity = '0'; text.style.transform = 'translateX(' + (dir * -24) + 'px)';
+      setTimeout(() => {
+        fillText(p);
+        text.style.transition = 'none'; text.style.transform = 'translateX(' + (dir * 24) + 'px)';
+        requestAnimationFrame(() => requestAnimationFrame(() => { text.style.transition = 'opacity .35s ease,transform .45s ' + EASE; text.style.opacity = '1'; text.style.transform = 'translateX(0)'; text.style.pointerEvents = 'auto'; }));
+      }, dir ? 200 : 0);
+    };
+    const close = () => {
+      if (!this._wv) return;
+      ui.style.opacity = '0'; ui.style.pointerEvents = 'none';
+      [...media.querySelectorAll('video')].forEach((v) => v.pause());
+      setLayer(coverLayer(data.open.find((p) => p.id === 'pd-grasse') || list()[0]));
+      place(tileRect()); scrim.style.opacity = '0';
+      window.removeEventListener('keydown', onKey); window.removeEventListener('resize', onRz);
+      setTimeout(() => { ov.remove(); scrim.remove(); this._wv = null; }, 640);
+    };
+    const onKey = (e) => {
+      if (e.target && e.target.tagName === 'INPUT') { if (e.key === 'Escape') close(); return; }
+      if (e.key === 'Escape') close(); else if (e.key === 'ArrowRight') go(idx + 1, 1); else if (e.key === 'ArrowLeft') go(idx - 1, -1);
+    };
+    const onRz = () => { if (this._wv) place(full()); };
+    ov.querySelector('[data-wprev]').addEventListener('click', (e) => { e.stopPropagation(); go(idx - 1, -1); });
+    ov.querySelector('[data-wnext]').addEventListener('click', (e) => { e.stopPropagation(); go(idx + 1, 1); });
+    ov.querySelector('[data-wclose]').addEventListener('click', (e) => { e.stopPropagation(); close(); });
+    stopBtn.addEventListener('click', (e) => { e.stopPropagation(); stop(); });
+    scrim.addEventListener('click', close);
+    let tx = null;
+    ov.addEventListener('touchstart', (e) => { tx = e.touches[0].clientX; }, { passive: true });
+    ov.addEventListener('touchend', (e) => { if (tx == null || playing) return; const dx = e.changedTouches[0].clientX - tx; tx = null; if (Math.abs(dx) > 50) go(idx + (dx < 0 ? 1 : -1), dx < 0 ? 1 : -1); });
+    window.addEventListener('keydown', onKey); window.addEventListener('resize', onRz);
+    this._wv = { close };
+    place(tileRect());
+    const first = list()[idx];
+    media.appendChild(Object.assign(coverLayer(first), {}));
+    media.firstChild.style.cssText += ';position:absolute;inset:0';
+    document.body.appendChild(scrim); document.body.appendChild(ov);
+    ov.getBoundingClientRect();
+    requestAnimationFrame(() => { place(full()); scrim.style.opacity = '0.9'; });
+    fillText(first);
+    ov.querySelector('[data-wcount]').textContent = String(idx + 1).padStart(2, '0') + ' / ' + String(list().length).padStart(2, '0');
+    setTimeout(() => { ui.style.opacity = '1'; ui.style.pointerEvents = 'auto'; }, 420);
+  }
+  toggleMore = (e) => { if (e && e.stopPropagation) e.stopPropagation(); this.setState((s) => ({ more: !s.more })); };
   _openWork() { const root = this.boardEl; if (!root) return; const gate = root.querySelector('[data-ndagate]'); if (gate) gate.style.display = this._unlocked ? 'none' : 'flex'; const track = root.querySelector('[data-galtrack]'); if (track) track.scrollTop = 0; this._lazyCovers(); setTimeout(() => this._bindGallery(), 90); }
   _lazyCovers() {
     const root = this.boardEl; if (!root) return;
@@ -596,12 +746,14 @@ class Component extends DCLogic {
         this._setArrow(t, true);
         const pad = t.querySelector('[data-pad]');
         if (pad) pad.style.transform = 'scale(1.012)';
+        const hl = t.querySelector('[data-hello]'); if (hl) hl.style.transform = 'translateX(min(1cqmax, 16px))';
       });
       t.addEventListener('mouseleave', () => {
         if (this.state.open === i) return;
         this._setArrow(t, false);
         const pad = t.querySelector('[data-pad]');
         if (pad) pad.style.transform = '';
+        const hl = t.querySelector('[data-hello]'); if (hl) hl.style.transform = '';
       });
       const closeEl = t.querySelector('[data-act="close"]');
       if (closeEl) {
@@ -622,8 +774,8 @@ class Component extends DCLogic {
     // WHAT I DO — lanes fill with accent, reveal detail
     root.querySelectorAll('[data-lane]').forEach((el) => {
       const acc = el.getAttribute('data-accent');
-      el.addEventListener('mouseenter', () => { const y = (acc || '').toLowerCase() === '#f5e14b'; el.style.setProperty('background', acc, 'important'); el.style.setProperty('color', y ? '#10131A' : '#fff', 'important'); el.classList.toggle('gc-onylw', y); showMore(el, true); });
-      el.addEventListener('mouseleave', () => { el.style.setProperty('background', '#DAD7CF'); el.style.setProperty('color', '#10131A'); el.classList.remove('gc-onylw'); showMore(el, false); });
+      el.addEventListener('mouseenter', () => { const y = (acc || '').toLowerCase().search(/yellow|accent/) >= 0; el.style.setProperty('background', acc, 'important'); el.style.setProperty('color', y ? 'var(--gc-ink)' : '#fff', 'important'); el.classList.toggle('gc-onylw', y); showMore(el, true); });
+      el.addEventListener('mouseleave', () => { el.style.setProperty('background', 'var(--gc-paper-light)'); el.style.setProperty('color', 'var(--gc-ink)'); el.classList.remove('gc-onylw'); showMore(el, false); });
     });
     // WHERE I LIVED — marker <-> card cross highlight
     const setCountry = (code, on) => {
@@ -633,17 +785,17 @@ class Component extends DCLogic {
           n.setAttribute('fill', on ? acc : (n.getAttribute('data-base') || '#B9B9B2'));
           return;
         }
-        n.style.color = '#10131A';
+        n.style.color = 'var(--gc-ink)';
         const lbl = n.querySelector('[data-dot]') ? n.querySelector('[data-dot]').nextElementSibling : null;
         if (lbl) lbl.style.fontWeight = on ? '800' : '';
         const dot = n.querySelector('[data-dot]');
-        if (dot) { dot.style.background = on ? '#10131A' : '#4B2BFF'; dot.style.transform = on ? 'scale(1.8)' : ''; }
+        if (dot) { dot.style.background = on ? 'var(--gc-ink)' : 'var(--gc-accent)'; dot.style.transform = on ? 'scale(1.8)' : ''; }
       });
       root.querySelectorAll('[data-ccard="' + code + '"]').forEach((n) => {
         const acc = n.getAttribute('data-accent');
-        const y = (acc || '').toLowerCase() === '#f5e14b';
-        if (on) { n.style.setProperty('background', acc, 'important'); n.style.setProperty('color', y ? '#10131A' : '#fff', 'important'); }
-        else { n.style.setProperty('background', '#DAD7CF'); n.style.setProperty('color', '#10131A'); }
+        const y = (acc || '').toLowerCase().search(/yellow|accent/) >= 0;
+        if (on) { n.style.setProperty('background', acc, 'important'); n.style.setProperty('color', y ? 'var(--gc-ink)' : '#fff', 'important'); }
+        else { n.style.setProperty('background', 'var(--gc-paper-light)'); n.style.setProperty('color', 'var(--gc-ink)'); }
         n.classList.toggle('gc-onylw', on && y);
       });
     };
@@ -664,10 +816,10 @@ class Component extends DCLogic {
     });
     // MY JOURNEY — steps grow dot + reveal detail
     root.querySelectorAll('[data-step]').forEach((el) => {
-      const acc = el.getAttribute('data-accent') || '#F5E14B';
+      const acc = el.getAttribute('data-accent') || 'var(--gc-yellow)';
       const dot = el.querySelector('[data-dot]');
       const htitle = el.querySelector('[data-htitle]');
-      el.addEventListener('mouseenter', () => { if (dot) { dot.style.background = acc; dot.style.transform = 'scale(1.55)'; } if (htitle) { htitle.style.background = '#F5E14B'; htitle.classList.add('gc-onylw'); } showMore(el, true); });
+      el.addEventListener('mouseenter', () => { if (dot) { dot.style.background = acc; dot.style.transform = 'scale(1.55)'; } if (htitle) { htitle.style.background = 'var(--gc-yellow)'; htitle.classList.add('gc-onylw'); } showMore(el, true); });
       el.addEventListener('mouseleave', () => { if (dot) { dot.style.transform = ''; } if (htitle) { htitle.style.background = ''; htitle.classList.remove('gc-onylw'); } showMore(el, false); });
     });
     // THE WORK — sealed tiles tease their category
@@ -678,15 +830,15 @@ class Component extends DCLogic {
     });
     // CONTACT — social rows invert + nudge
     root.querySelectorAll('[data-social]').forEach((el) => {
-      const acc = el.getAttribute('data-accent') || '#4B2BFF';
-      const light = acc.toLowerCase() === '#f5e14b' || acc.toLowerCase() === '#b7b4ac';
-      const fg = light ? '#10131A' : '#fff';
-      el.addEventListener('mouseenter', () => { el.style.background = '#fff'; el.style.color = light ? '#10131A' : acc; el.style.paddingLeft = 'min(1.9cqmax, 30px)'; });
+      const acc = el.getAttribute('data-accent') || 'var(--gc-accent)';
+      const light = acc.toLowerCase().search(/yellow|accent/) >= 0 || acc.toLowerCase() === '#b7b4ac';
+      const fg = light ? 'var(--gc-ink)' : 'var(--gc-yellow)';
+      el.addEventListener('mouseenter', () => { el.style.background = '#fff'; el.style.color = light ? 'var(--gc-ink)' : acc; el.style.paddingLeft = 'min(1.9cqmax, 30px)'; });
       el.addEventListener('mouseleave', () => { el.style.background = acc; el.style.color = fg; el.style.paddingLeft = ''; });
     });
     // WHO I AM — chips invert
     root.querySelectorAll('[data-chip]').forEach((el) => {
-      el.addEventListener('mouseenter', () => { el.style.background = '#10131A'; el.style.color = '#fff'; });
+      el.addEventListener('mouseenter', () => { el.style.background = 'var(--gc-ink)'; el.style.color = '#fff'; });
       el.addEventListener('mouseleave', () => { el.style.background = ''; el.style.color = ''; });
     });
   }
@@ -707,6 +859,12 @@ class Component extends DCLogic {
     root.querySelectorAll('[data-whatgrid]').forEach((g) => { g.style.gridTemplateColumns = portrait ? '1fr' : 'repeat(3,1fr)'; });
     root.querySelectorAll('[data-workgrid]').forEach((g) => { g.style.gridTemplateColumns = portrait ? '1fr' : 'repeat(2,1fr)'; });
     root.querySelectorAll('[data-howgrid]').forEach((g) => { g.style.flexDirection = portrait ? 'column' : 'row'; });
+    root.querySelectorAll('[data-journey]').forEach((j) => {
+      const row = j.querySelector('[data-jrow]'); const ar = j.querySelector('[data-jarrow]');
+      if (ar) ar.style.display = portrait ? 'none' : 'flex';
+      if (row) { row.style.gridTemplateColumns = portrait ? '1fr' : 'repeat(4,minmax(0,1fr))'; row.style.gap = portrait ? 'min(0.5cqmax, 8px)' : 'min(0.8cqmax, 12.8px)'; }
+      j.querySelectorAll('[data-jitem]').forEach((it) => { it.style.flexDirection = portrait ? 'row' : 'column'; it.style.alignItems = portrait ? 'baseline' : 'stretch'; it.style.gap = portrait ? 'min(0.8cqmax, 12.8px)' : 'min(0.4cqmax, 6.4px)'; it.style.borderLeft = portrait ? 'min(0.3cqmax, 4.8px) solid var(--gc-yellow)' : 'none'; it.style.paddingLeft = portrait ? 'min(0.8cqmax, 12.8px)' : '0'; });
+    });
     if (grid) {
       let cols, rows;
       if (portrait) {
@@ -778,7 +936,29 @@ class Component extends DCLogic {
       if (bo) {
         const show = mode === 'open';
         bo.style.display = show ? (i === 2 ? 'grid' : 'flex') : 'none';
-        if (show) { bo.style.animation = 'none'; void bo.offsetWidth; bo.style.animation = 'gcIn .5s cubic-bezier(.2,.7,.2,1) .12s both'; if (!this._sweepDone) { this._sweepDone = true; this._sweepHints(t, bo); } }
+        if (show && !bo._anim) { bo._anim = true; bo.style.animation = 'none'; void bo.offsetWidth; bo.style.animation = 'gcIn .5s cubic-bezier(.2,.7,.2,1) .12s both'; if (!this._sweepDone) { this._sweepDone = true; this._sweepHints(t, bo); } }
+        if (!show) bo._anim = false;
+        if (bo.hasAttribute('data-split')) {
+          const more = show && this.state.more;
+          const panel = bo.querySelector('[data-splitpanel]'); const inner = bo.querySelector('[data-splitinner]'); const btn = bo.querySelector('[data-morebtn]');
+          bo.style.flexDirection = portrait ? 'column' : 'row';
+          if (panel) panel.style.flexBasis = more ? (portrait ? '52%' : '44%') : '0%';
+          if (inner) { inner.style.transitionDelay = more ? '.22s' : '0s'; inner.style.opacity = more ? '1' : '0'; }
+          if (btn) { btn.textContent = more ? 'CLOSE \u2212' : 'READ MORE +'; btn.style.background = more ? 'var(--gc-ink)' : 'transparent'; btn.style.color = more ? 'var(--gc-yellow)' : ''; btn.style.borderColor = more ? 'var(--gc-ink)' : 'currentColor'; }
+        }
+        const hint = stage && stage.querySelector('[data-scrollhint]');
+        if (hint) {
+          if (!show) { hint.style.display = 'none'; }
+          else {
+            const upd = () => {
+              const over = bo.scrollHeight - bo.clientHeight > 4;
+              const atBottom = bo.scrollTop + bo.clientHeight >= bo.scrollHeight - 6;
+              hint.style.display = over && !atBottom ? 'flex' : 'none';
+            };
+            if (!bo._hintBound) { bo.addEventListener('scroll', upd, { passive: true }); bo._hintBound = true; }
+            requestAnimationFrame(upd); setTimeout(upd, 260);
+          }
+        }
       }
       const g = t.querySelector('[data-arrowg]');
       const openMode = mode === 'open';
@@ -803,6 +983,7 @@ class Component extends DCLogic {
       open3: this.open3, open4: this.open4, open5: this.open5,
       themeClass: this.state.night ? 'gc-night' : '',
       toggleNight: this.toggleNight,
+      toggleMore: this.toggleMore,
       nightGlyph: this.state.night ? '\u2600' : '\u263e',
       unlockWork: this.unlockWork,
       keyDown: this.keyDown,
@@ -822,15 +1003,15 @@ class Component extends DCLogic {
     if (val === 'motiondesign') {
       this._unlocked = true;
       root.querySelectorAll('[data-work][data-cat="client"]').forEach((w) => { w.setAttribute('data-locked', '0'); w.style.display = 'flex'; });
-      const sub = root.querySelector('[data-worksub]'); if (sub) { sub.textContent = 'full reel unlocked. Click any film to watch'; sub.style.color = '#F5E14B'; }
+      const sub = root.querySelector('[data-worksub]'); if (sub) { sub.textContent = 'full reel unlocked. Click any film to watch'; sub.style.color = 'var(--gc-yellow)'; }
       const lock = root.querySelector('[data-worklock]'); if (lock) lock.style.display = 'block';
-      if (msg) { msg.textContent = 'ACCESS GRANTED'; msg.style.color = '#F5E14B'; msg.style.display = 'block'; }
+      if (msg) { msg.textContent = 'ACCESS GRANTED'; msg.style.color = 'var(--gc-yellow)'; msg.style.display = 'block'; }
       if (inp) { inp.setAttribute('disabled', ''); inp.style.opacity = '0.5'; }
       if (gate) setTimeout(() => { gate.style.display = 'none'; }, 400);
       this._lazyCovers();
       if (this._galUpdate) this._galUpdate();
     } else {
-      if (msg) { msg.textContent = 'WRONG KEY, try again'; msg.style.color = '#F5E14B'; msg.style.display = 'block'; }
+      if (msg) { msg.textContent = 'WRONG KEY, try again'; msg.style.color = 'var(--gc-yellow)'; msg.style.display = 'block'; }
       if (inp && inp.animate) inp.animate([{ transform: 'translateX(0)' }, { transform: 'translateX(-7px)' }, { transform: 'translateX(7px)' }, { transform: 'translateX(0)' }], { duration: 280, easing: 'ease-in-out' });
     }
   };
