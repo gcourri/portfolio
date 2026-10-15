@@ -74,6 +74,7 @@ a:hover{color:var(--gc-ink);}
 [data-cursor],[data-trail]{display:none !important;}
 @media (hover: none){[data-cursorroot], [data-cursorroot] *{cursor:auto !important;} [data-cursor],[data-trail]{display:none !important;}}
 [data-tile]:hover [data-num], [data-num].gc-numon, [data-tile].gc-pulse [data-num]{background:var(--gc-yellow) !important;color:var(--gc-ink) !important;}
+@media (hover: hover) and (pointer: fine){html, body, body *{cursor:none !important;}}
 [data-galtrack],[data-lightslot]{scrollbar-width:none;-ms-overflow-style:none;}
 [data-galtrack]::-webkit-scrollbar,[data-lightslot]::-webkit-scrollbar,[data-body="open"]::-webkit-scrollbar,[data-lane]::-webkit-scrollbar,[data-step]::-webkit-scrollbar{display:none;}
 .gc-gedlink:hover{background:var(--gc-accent-hover);}
