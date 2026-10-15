@@ -63,6 +63,15 @@ window.GC_PROJECTS = {
     desc:     'A personal end-of-year piece — a warm, playful take on the holiday season, made for the joy of animating.',
     meta:     '2023 · Personal · Concept, Design, Animation · AE · C4D · Redshift',
   },
+  {
+    id:       'pd-peron',
+    title:    'FRANÇOIS PÉRON',
+    cover:    'uploads/pd/peron-cover.gif',
+    videos:   ['uploads/pd/peron-1.mp4'],
+    locked:   false,
+    desc:     'A motion piece for the Muséum d\'Histoire Naturelle du Havre, retracing the voyages of naturalist François Péron through animated maps and specimens.',
+    meta:     '2021 · Personal · Concept, Design, Animation · AE · C4D',
+  },
   ],
   client: [
   {
@@ -165,6 +174,15 @@ window.GC_PROJECTS = {
     meta:     '2025 · Animation systems · AE · Cavalry',
   },
   {
+    id:       'gd-ocs',
+    title:    'OCS — IDENTS',
+    cover:    'uploads/gd/ocs-cover.gif',
+    videos:   ['uploads/gd/ocs-1.mp4', 'uploads/gd/ocs-2.mp4', 'uploads/gd/ocs-3.mp4'],
+    locked:   true,
+    desc:     'Ident concepts for the OCS cinema channels.',
+    meta:     '2025 · Design, Animation · AE',
+  },
+  {
     id:       'gd-rtl',
     title:    'RTL — CANNES LIONS',
     cover:    'uploads/gd/rtl-cover.gif',
@@ -172,6 +190,15 @@ window.GC_PROJECTS = {
     locked:   true,
     desc:     'Animation loops for RTL Beach at the 2024 Cannes Lions.',
     meta:     '2024 · Design, Animation · AE · C4D · Redshift',
+  },
+  {
+    id:       'gd-p24',
+    title:    'PARIS 2024 — BEST-OF FILMS',
+    cover:    'uploads/gd/p24-cover.gif',
+    videos:   ['uploads/gd/p24-1.mp4', 'uploads/gd/p24-2.mp4', 'uploads/gd/p24-3.mp4', 'uploads/gd/p24-4.mp4', 'uploads/gd/p24-5.mp4', 'uploads/gd/p24-6.mp4'],
+    locked:   true,
+    desc:     'Best-of films for the Paris 2024 Olympic Games — six episodes on the look, the mascot, the French team and the ceremonies.',
+    meta:     '2024 · Design, Animation · AE',
   },
   {
     id:       'gd-aeroport',
