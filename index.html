@@ -73,8 +73,7 @@ a:hover{color:var(--gc-ink);}
 .gc-board [data-tile]{opacity:0;transform:translateY(min(2.4cqmax, 38.4px)) scale(0.985);}
 [data-cursor],[data-trail]{display:none !important;}
 @media (hover: none){[data-cursorroot], [data-cursorroot] *{cursor:auto !important;} [data-cursor],[data-trail]{display:none !important;}}
-[data-tile]:hover [data-num], [data-num].gc-numon{background:var(--gc-yellow) !important;color:var(--gc-ink) !important;}
-@media (hover: hover) and (pointer: fine){html, body, body *{cursor:none !important;}}
+[data-tile]:hover [data-num], [data-num].gc-numon, [data-tile].gc-pulse [data-num]{background:var(--gc-yellow) !important;color:var(--gc-ink) !important;}
 [data-galtrack],[data-lightslot]{scrollbar-width:none;-ms-overflow-style:none;}
 [data-galtrack]::-webkit-scrollbar,[data-lightslot]::-webkit-scrollbar,[data-body="open"]::-webkit-scrollbar,[data-lane]::-webkit-scrollbar,[data-step]::-webkit-scrollbar{display:none;}
 .gc-gedlink:hover{background:var(--gc-accent-hover);}
@@ -548,6 +547,66 @@ class Component extends DCLogic {
     this._fit();
     this._layout();
     this._bindCursor();
+    if (window.matchMedia && !matchMedia('(hover: hover)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches) this._bindTouchLife();
+  }
+  _bindTouchLife() {
+    const ev = (el, t) => el.dispatchEvent(new MouseEvent(t, { bubbles: false }));
+    const C = '167.87 0 167.87 64.94 64.94 64.94 64.94 167.87 0 167.87 0 0 167.87 0';
+    // 1. idle board: tiles take their hover state one after another
+    let k = 0, cur = null;
+    const off = () => { if (cur) { cur.classList.remove('gc-pulse'); if (this.state.open < 0) ev(cur, 'mouseleave'); cur = null; } };
+    this._idleT = setInterval(() => {
+      const root = this.boardEl; if (!root) return;
+      if (this.state.open >= 0 || this.state.intro === 'run' || document.hidden) { off(); return; }
+      const tiles = Array.from(root.querySelectorAll('[data-tile]')).sort((a, b) => (+a.getAttribute('data-tile')) - (+b.getAttribute('data-tile')));
+      if (!tiles.length) return;
+      off(); cur = tiles[k++ % tiles.length]; cur.classList.add('gc-pulse'); ev(cur, 'mouseenter');
+      const c = cur; setTimeout(() => { if (cur === c) off(); }, 1300);
+    }, 1900);
+    // 2. inside an open tile: the item nearest the middle of the scroll area gets its hover state
+    const SEL = '[data-lane],[data-step],[data-ccard],[data-nextline],[data-social],[data-chip],[data-wave],[data-redact]';
+    const focus = (bo) => {
+      if (bo._lock) return;
+      const r = bo.getBoundingClientRect(), mid = r.top + r.height * 0.45;
+      let best = null, bd = Infinity;
+      bo.querySelectorAll(SEL).forEach((el) => { const b = el.getBoundingClientRect(); if (!b.height || b.bottom < r.top || b.top > r.bottom) return; const d = Math.abs(b.top + b.height / 2 - mid); if (d < bd) { bd = d; best = el; } });
+      if (best === bo._act) return;
+      if (bo._act) ev(bo._act, 'mouseleave');
+      bo._act = best; if (best) ev(best, 'mouseenter');
+      bo._lock = true; setTimeout(() => { bo._lock = false; }, 380);
+    };
+    const bindBodies = () => {
+      const root = this.boardEl; if (!root) return;
+      root.querySelectorAll('[data-body="open"]').forEach((bo) => {
+        if (bo._tl) return; bo._tl = true;
+        let raf = 0, st = 0;
+        bo.addEventListener('scroll', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(() => focus(bo)); clearTimeout(st); st = setTimeout(() => focus(bo), 420); }, { passive: true });
+      });
+    };
+    bindBodies(); setTimeout(bindBodies, 1500);
+    // 4. tap on a tile: hover state, then the arrow pulls the tile open in one motion
+    const rawOpen = this._open.bind(this);
+    this._open = (i) => {
+      const t = this.boardEl && this.boardEl.querySelector('[data-tile="' + i + '"]');
+      if (!t || this.state.open >= 0 || this._tapT) { rawOpen(i); return; }
+      off(); t.classList.add('gc-pulse'); ev(t, 'mouseenter');
+      const a = t.querySelector('[data-arrow]');
+      if (a && a.animate) a.animate([{ transform: 'translate(0,0)' }, { transform: 'translate(0,0)', offset: 0.45 }, { transform: 'translate(40%,-40%)' }], { duration: 260, easing: 'cubic-bezier(.5,0,.75,0)', composite: 'add' });
+      if (t.animate) t.animate([{ transform: 'scale(1)', transformOrigin: '0 100%' }, { transform: 'scale(1.025)', transformOrigin: '0 100%' }], { duration: 240, easing: 'cubic-bezier(.4,0,.2,1)' });
+      this._tapT = setTimeout(() => { this._tapT = 0; t.classList.remove('gc-pulse'); rawOpen(i); }, 230);
+    };
+    // 3. touch feedback: press + logo corner at the touch point
+    document.addEventListener('touchstart', (e) => {
+      const p = e.touches[0]; if (!p) return;
+      const hit = e.target.closest && e.target.closest('[data-tile],[data-social],[data-chip],[data-work],[data-morebtn],button,a');
+      if (hit && hit.animate && !hit.hasAttribute('data-tile')) hit.animate([{ transform: 'scale(1)' }, { transform: 'scale(0.975)', offset: 0.35 }, { transform: 'scale(1)' }], { duration: 320, easing: 'cubic-bezier(.3,.7,.3,1)', composite: 'add' });
+      const s = 18, el = document.createElement('div');
+      el.style.cssText = 'position:fixed;left:' + (p.clientX - s * 0.25) + 'px;top:' + (p.clientY - s * 0.25) + 'px;width:' + s + 'px;height:' + s + 'px;z-index:2147483000;pointer-events:none';
+      el.innerHTML = '<svg viewBox="0 0 168 168" style="width:100%;height:100%;display:block;overflow:visible"><polygon points="' + C + '" fill="#3DFF6E" stroke="#0A0A0A" stroke-width="14" paint-order="stroke"></polygon></svg>';
+      document.body.appendChild(el);
+      const a = el.animate([{ opacity: 0, transform: 'translate(8px,8px) scale(.6)' }, { opacity: 1, transform: 'translate(0,0) scale(1)', offset: 0.3 }, { opacity: 0, transform: 'translate(-10px,-10px) scale(1)' }], { duration: 650, easing: 'cubic-bezier(.22,1,.36,1)' });
+      a.onfinish = () => el.remove();
+    }, { passive: true });
   }
   _bindCursor() {
     const cur = document.querySelector('[data-cursor]');
