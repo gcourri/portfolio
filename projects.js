@@ -39,7 +39,7 @@ window.GC_PROJECTS = {
   {
     id:       'pd-culturebox',
     title:    'CULTUREBOX',
-    cover:    'uploads/pd/culturebox-cover.gif',
+    cover:    'uploads/pd/culturebox-cover-25fps.gif',
     videos:   ['uploads/pd/culturebox-1.mp4', 'uploads/pd/culturebox-2.mp4', 'uploads/pd/culturebox-3.mp4'],
     locked:   false,
     desc:     'A self-initiated ident system for Culturebox — three looping variations (flowers, cube, bubblegum) exploring texture, colour and rhythm.',
@@ -48,7 +48,7 @@ window.GC_PROJECTS = {
   {
     id:       'pd-m6',
     title:    'M6 CINÉMA',
-    cover:    'uploads/pd/m6-cover.gif',
+    cover:    'uploads/pd/m6-cover-25fps.gif',
     videos:   ['uploads/pd/m6-1.mp4'],
     locked:   false,
     desc:     'A spec title design for M6 Cinéma — a cinematic opener where light and type set the mood before a film even starts.',
@@ -57,7 +57,7 @@ window.GC_PROJECTS = {
   {
     id:       'pd-christmas',
     title:    'MERRY CHRISTMAS',
-    cover:    'uploads/pd/christmas-cover.gif',
+    cover:    'uploads/pd/christmas-cover-25fps.gif',
     videos:   ['uploads/pd/christmas-1.mp4'],
     locked:   false,
     desc:     'A personal end-of-year piece — a warm, playful take on the holiday season, made for the joy of animating.',
@@ -66,7 +66,7 @@ window.GC_PROJECTS = {
   {
     id:       'pd-peron',
     title:    'FRANÇOIS PÉRON',
-    cover:    'uploads/pd/peron-cover.gif',
+    cover:    'uploads/pd/peron-cover-25fps.gif',
     videos:   ['uploads/pd/peron-1.mp4'],
     locked:   false,
     desc:     'A motion piece for the Muséum d\'Histoire Naturelle du Havre, retracing the voyages of naturalist François Péron through animated maps and specimens.',
